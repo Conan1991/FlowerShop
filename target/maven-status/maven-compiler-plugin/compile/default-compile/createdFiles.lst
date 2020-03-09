@@ -1,0 +1,12 @@
+com\doronin\controller\LoginController.class
+com\doronin\service\UserService.class
+com\doronin\service\UserServiceImp.class
+com\doronin\dao\UserDaoImp.class
+com\doronin\controller\HomeController.class
+com\doronin\controller\UserController.class
+com\doronin\config\WebMvcConfig.class
+com\doronin\config\CorsConfiguration.class
+com\doronin\dao\UserDao.class
+com\doronin\model\FlowersUsersEntity.class
+com\doronin\config\HibernateConfig.class
+com\doronin\config\AppInitializer.class
