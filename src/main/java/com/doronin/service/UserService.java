@@ -9,4 +9,5 @@ public interface UserService {
    void save(FlowersUsersEntity user);
 
    List<FlowersUsersEntity> list();
+   boolean isUsernameBusy(String username);
 }

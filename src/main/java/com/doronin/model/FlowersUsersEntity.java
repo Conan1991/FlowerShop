@@ -16,6 +16,8 @@ public class FlowersUsersEntity {
 
    @Id
    @Column(name = "ID")
+   @SequenceGenerator( name = "flowers_seq", sequenceName = "flowers_sequence", allocationSize = 1)
+   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "flowers_seq")
    public Integer getId() {
       return id;
    }
@@ -75,7 +77,7 @@ public class FlowersUsersEntity {
    }
 
    @Basic
-   @Column(name = "DISCOUNT")
+   @Column(name = "DISCOUNT", insertable = false)
    public Integer getDiscount() {
       return discount;
    }

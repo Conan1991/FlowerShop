@@ -1,26 +1,41 @@
 package com.doronin.controller;
 
+import com.doronin.service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
- 
+
+import javax.ws.rs.FormParam;
+
 @Controller
-public class LoginController
-{
+public class LoginController {
+
+    @Autowired
+    private UserService userService;
+
+    private static final Logger LOGGER = LogManager.getLogger(LoginController.class);
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String loginPage(@RequestParam(value = "error", required = false) String error,
-                            @RequestParam(value = "logout", required = false) String logout,
+    public String loginPage(
                             Model model) {
-        String errorMessge = null;
-        if(error != null) {
-            errorMessge = "Username or Password is incorrect !!";
-        }
-        if(logout != null) {
-            errorMessge = "You have been successfully logged out !!";
-        }
-        model.addAttribute("errorMessge", errorMessge);
+        LOGGER.info(model);
+//        if (error != null)
+//            model.addAttribute("error", "Your username and password is invalid.");
+//        if (logout != null)
+//            model.addAttribute("message", "You have been logged out successfully.");
         return "login";
+        //return "redirect:/";
+    }
+
+    @RequestMapping(value = "/submit", method = RequestMethod.POST)
+    public String loginCustomer(@FormParam("username") String username, @FormParam("password") String password, Model model) {
+        model.addAttribute("userName", userService.list());
+        LOGGER.info(username);
+        LOGGER.info(password);
+        return "redirect:/home";
     }
 }
