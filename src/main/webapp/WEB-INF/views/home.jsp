@@ -28,6 +28,7 @@
             <td>${flower.name}</td>
             <td>${flower.price}</td>
             <td>${flower.amount}</td>
+            <td><input type="number" name="${flower.name}"></td>
 
         </tr>
     </c:forEach>
