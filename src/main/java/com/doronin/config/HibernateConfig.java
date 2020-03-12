@@ -1,6 +1,9 @@
 package com.doronin.config;
 
+import com.doronin.model.AdministratorEntity;
+import com.doronin.model.FlowersEntity;
 import com.doronin.model.FlowersUsersEntity;
+import com.doronin.model.OrdersEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +27,9 @@ public class HibernateConfig {
 		LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
 		factoryBean.setConfigLocation(context.getResource("classpath:hibernate.cfg.xml"));
 		factoryBean.setAnnotatedClasses(FlowersUsersEntity.class);
+		factoryBean.setAnnotatedClasses(AdministratorEntity.class);
+		factoryBean.setAnnotatedClasses(FlowersEntity.class);
+		factoryBean.setAnnotatedClasses(OrdersEntity.class);
 		return factoryBean;
 	}
 

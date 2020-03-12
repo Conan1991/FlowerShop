@@ -10,4 +10,5 @@ public interface UserService {
 
    List<FlowersUsersEntity> list();
    boolean isUsernameBusy(String username);
+   boolean isUserExists(String username, String password);
 }

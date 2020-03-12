@@ -26,7 +26,7 @@
 </head>
 <body>
 <h1>Input Form</h1>
-<form:form action="addUser" method="post" modelAttribute="user">
+<form:form action="addUser" method="post" modelAttribute="user" >
     <table>
         <tr>
             <td>Name</td>

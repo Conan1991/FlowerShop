@@ -1,0 +1,22 @@
+
+.error {
+    color: red;
+}
+
+table {
+    width: 50%;
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+
+table td {
+    border: 1px solid #565454;
+    padding: 20px;
+}
+
+table.sortable thead {
+    background-color:#eee;
+    color:#666666;
+    font-weight: bold;
+    cursor: default;
+}

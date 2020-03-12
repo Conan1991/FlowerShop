@@ -11,4 +11,5 @@ public interface UserDao {
    void save(FlowersUsersEntity user);
    List<FlowersUsersEntity> list();
    boolean isUsernameBusy(String userName);
+   boolean isUserExists(String username, String password);
 }

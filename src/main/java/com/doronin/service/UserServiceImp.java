@@ -29,4 +29,9 @@ public class UserServiceImp implements UserService {
       return userDao.isUsernameBusy(username);
    }
 
+   @Transactional
+   public boolean isUserExists(String username, String password) {
+      return userDao.isUserExists(username, password);
+   }
+
 }

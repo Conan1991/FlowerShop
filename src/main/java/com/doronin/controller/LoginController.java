@@ -33,7 +33,8 @@ public class LoginController {
 
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
     public String loginCustomer(@FormParam("username") String username, @FormParam("password") String password, Model model) {
-        model.addAttribute("userName", userService.list());
+        //model.addAttribute("userName", userService.list());
+        model.addAttribute("username", username);
         LOGGER.info(username);
         LOGGER.info(password);
         return "redirect:/home";

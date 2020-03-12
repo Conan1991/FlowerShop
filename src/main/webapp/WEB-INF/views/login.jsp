@@ -3,26 +3,12 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <html>
 <body>
-<style type="text/css">
-    .error {
-        color: red;
-    }
-
-    table {
-        width: 50%;
-        border-collapse: collapse;
-        border-spacing: 0px;
-    }
-
-    table td {
-        border: 1px solid #565454;
-        padding: 20px;
-    }
-</style>
+<link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/style.css"/>
+<%--<style type="text/css"> <%@include file="css/style.css"%></style>--%>
 <h1>Spring Security 5 - Login Form</h1>
 <%--    <c:if test="${not empty errorMessage}"><div style="color:red; font-weight: bold; margin: 30px 0px;">${errorMessge}</div></c:if>--%>
 
-<form name='login' action="/submit" method='POST'>
+<form name='login' action="/home" method='POST'>
     <table>
         <tr>
             <td>User:</td>
@@ -36,6 +22,9 @@
             <td><input name="submit" type="submit" value="submit"/></td>
         </tr>
     </table>
+    <c:if test="${not empty errMsg}">
+        <h4 class="error" style="width: 900px">${errMsg}</h4>
+    </c:if>
 </form>
 <h4 class="text-center"><a href="${contextPath}/registration">Create an account</a></h4>
 </body>
