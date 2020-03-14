@@ -1,10 +1,17 @@
 function fire_ajax_submit(username, flowername) {
-    let amount = document.getElementById(flowername).value;
+    let ordered = document.getElementById(flowername).value;
+    // let elementsByClassName = document.getElementsByClassName("amount_value");
+    let amount_elem = $('span[itemprop=' + flowername + ']');
+    let cur_val = amount_elem.text(parseInt(amount_elem.text()) - parseInt(ordered));
+    if (cur_val == '0') {
+        let button = document.getElementById("btn" + flowername);
+        button.prop("disabled", true);
+    }
 
     var JSONObject = {
         'username': username,
         'flowername': flowername,
-        'amount': amount
+        'amount': ordered
     };
 
     $.ajax({
@@ -22,6 +29,23 @@ function fire_ajax_submit(username, flowername) {
         }
     })
 }
+
+// function gotoCart() {
+//     let username = document.getElementById("username").textContent;
+//     $.ajax({
+//         type: "GET",
+//         url: "/cart",
+//         contentType: "application/json; charset=utf-8",
+//         data: JSON.stringify(username),
+//         dataType: "jsonp",
+//         success: function (data) {
+//             console.log("SUCCESS : ", data);
+//         },
+//         error: function (e) {
+//             console.log("ERROR : ", e);
+//         }
+//     })
+// }
 
 $(function () {
 

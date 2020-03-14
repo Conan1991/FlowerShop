@@ -4,8 +4,7 @@
 <html>
 <body>
 <link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/style.css"/>
-<%--<style type="text/css"> <%@include file="css/style.css"%></style>--%>
-<h1>Spring Security 5 - Login Form</h1>
+<h1>Login Form</h1>
 <%--    <c:if test="${not empty errorMessage}"><div style="color:red; font-weight: bold; margin: 30px 0px;">${errorMessge}</div></c:if>--%>
 
 <form name='login' action="/home" method='POST'>

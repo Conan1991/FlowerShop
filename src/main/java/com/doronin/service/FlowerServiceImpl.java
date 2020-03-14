@@ -23,4 +23,9 @@ public class FlowerServiceImpl implements FlowerService {
     public List<FlowersEntity> list() {
         return flowersDao.list();
     }
+
+    @Transactional
+    public FlowersEntity getFlowerByName(String flowername) {
+        return flowersDao.getFlowerByName(flowername);
+    }
 }

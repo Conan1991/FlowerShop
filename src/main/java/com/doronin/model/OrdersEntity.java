@@ -11,9 +11,12 @@ public class OrdersEntity {
     private Date opendate;
     private Date closedate;
     private String status;
+    private String login;
 
     @Id
     @Column(name = "ID")
+    @SequenceGenerator( name = "orders_seq", sequenceName = "orders_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orders_seq")
     public Integer getId() {
         return id;
     }
@@ -23,7 +26,7 @@ public class OrdersEntity {
     }
 
     @Basic
-    @Column(name = "OPENDATE")
+    @Column(name = "OPENDATE", insertable = false)
     public Date getOpendate() {
         return opendate;
     }
@@ -33,7 +36,7 @@ public class OrdersEntity {
     }
 
     @Basic
-    @Column(name = "CLOSEDATE")
+    @Column(name = "CLOSEDATE", insertable = false)
     public Date getClosedate() {
         return closedate;
     }
@@ -66,5 +69,15 @@ public class OrdersEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, opendate, closedate, status);
+    }
+
+    @Basic
+    @Column(name = "LOGIN")
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 }

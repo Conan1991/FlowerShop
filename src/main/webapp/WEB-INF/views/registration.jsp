@@ -10,24 +10,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
+<title>Flower Shop Registration</title>
 
 <head>
-    <style type="text/css">
-        .error {
-            color: red;
-        }
-
-        table {
-            width: 50%;
-            border-collapse: collapse;
-            border-spacing: 0px;
-        }
-
-        table td {
-            border: 1px solid #565454;
-            padding: 20px;
-        }
-    </style>
+    <link href="<c:url value="/resources/css/style.css"/>" rel="stylesheet" type="text/css"/>
     <title>Create an account</title>
 </head>
 <body>

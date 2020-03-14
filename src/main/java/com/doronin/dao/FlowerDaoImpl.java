@@ -30,4 +30,13 @@ public class FlowerDaoImpl implements FlowerDao {
         TypedQuery<FlowersEntity> query = sessionFactory.getCurrentSession().createQuery(("select Flower from FlowersEntity Flower"));
         return query.getResultList();
     }
+
+    @Override
+    public FlowersEntity getFlowerByName(String flowername) {
+        TypedQuery<FlowersEntity> query = sessionFactory.getCurrentSession().createQuery("select Flower from FlowersEntity Flower " +
+                "where Flower.name = '" + flowername + "'", FlowersEntity.class);
+        LOGGER.info("Enter into getFlolwerByName function");
+        LOGGER.info(query.getResultList().toString());
+        return query.getSingleResult();
+    }
 }

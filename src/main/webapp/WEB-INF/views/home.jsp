@@ -6,10 +6,8 @@
 <html>
 <%--<style type="text/css"> <%@include file="css/style.css"%></style>--%>
 <%--<script type="text/javascript"><%@include file="js/sorttable.js"%></script>--%>
-
-
 <head>
-    <title>Spring 5 Web MVC Example</title>
+    <title>Flower Shop Home</title>
     <link href="<c:url value="/resources/css/style.css"/>" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="<c:url value="/resources/js/sorttable.js"/>"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
@@ -34,16 +32,25 @@
         <tr>
             <td>${flower.name}</td>
             <td>${flower.price}</td>
-            <td>${flower.amount}</td>
-            <td><input type="number" id="${flower.name}" min="0" max="${flower.amount}" class="text_input"></td>
-            <td><button value="add" type="button" id="btn${flower.name}" class="flower_button" onclick="fire_ajax_submit('${username}', '${flower.name}')">add</button></td>
+            <td><span class="amount_value" itemprop="${flower.name}">${flower.amount}</span></td>
+            <td><input type="number" id="${flower.name}" min="1" max="${flower.amount}" class="text_input"></td>
+            <td>
+                <button value="add" type="button" id="btn${flower.name}" class="flower_button"
+                        onclick="fire_ajax_submit('${username}', '${flower.name}')">add
+                </button>
+            </td>
         </tr>
     </c:forEach>
+    <tr>
+        <td>
+            <a href="<c:url value="/cart/${username}"/>">Go To Cart</a>
+        </td>
+    </tr>
 </table>
 
 <%--</form:form>--%>
 
-<span id="test_value"></span>
+
 <%--<display:table name="${flowers}" sort="list">--%>
 <%--&lt;%&ndash;    <display:setProperty name="basic.empty.showtable" value="true"/>&ndash;%&gt;--%>
 <%--    <display:column property="name" title="Name" sortable="true" headerClass="sortable"/>--%>
