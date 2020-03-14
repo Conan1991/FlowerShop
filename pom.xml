@@ -119,11 +119,11 @@
             <version>2.1.1</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/displaytag/displaytag -->
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
         <dependency>
-            <groupId>displaytag</groupId>
-            <artifactId>displaytag</artifactId>
-            <version>1.2</version>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.10.3</version>
         </dependency>
 
     </dependencies>

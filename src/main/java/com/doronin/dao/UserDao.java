@@ -12,4 +12,5 @@ public interface UserDao {
    List<FlowersUsersEntity> list();
    boolean isUsernameBusy(String userName);
    boolean isUserExists(String username, String password);
+   FlowersUsersEntity getUserByLogin(String username);
 }

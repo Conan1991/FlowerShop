@@ -46,7 +46,8 @@ public class UserDaoImp implements UserDao {
     @Override
     public boolean isUserExists(String username, String password) {
         Session currentSession = sessionFactory.getCurrentSession();
-        TypedQuery<FlowersUsersEntity> query = currentSession.createQuery("select User from FlowersUsersEntity User where User.login = '" + username + "'"
+        TypedQuery<FlowersUsersEntity> query = currentSession.createQuery("select User from FlowersUsersEntity User " +
+                "where User.login = '" + username + "'"
                 + " and User.password = '" + password + "'", FlowersUsersEntity.class);
         if (query.getResultList().isEmpty()) {
             LOGGER.info("Error, user not exists");
@@ -55,6 +56,16 @@ public class UserDaoImp implements UserDao {
             LOGGER.info("User is existing");
             return true;
         }
+    }
+
+    @Override
+    public FlowersUsersEntity getUserByLogin(String username) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        TypedQuery<FlowersUsersEntity> query = sessionFactory.getCurrentSession().createQuery("select User from FlowersUsersEntity User " +
+                "where User.login = '" + username + "'", FlowersUsersEntity.class);
+        LOGGER.info("Enter into getUserByName function");
+        LOGGER.info(query.getResultList().toString());
+        return query.getSingleResult();
     }
 
 }

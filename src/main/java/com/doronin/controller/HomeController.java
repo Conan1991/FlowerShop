@@ -48,7 +48,7 @@ public class HomeController {
             model.addAttribute("username", username);
             return "home";
         } else {
-            model.addAttribute("errMsg", "Your username or password incorrect, please, try again later");
+            model.addAttribute("errMsg", "Your username or password incorrect, please, try again");
             return "login";
         }
     }
