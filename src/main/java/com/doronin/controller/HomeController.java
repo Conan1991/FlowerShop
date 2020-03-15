@@ -2,7 +2,9 @@ package com.doronin.controller;
 
 import com.doronin.model.FlowersEntity;
 import com.doronin.model.FlowersUsersEntity;
+import com.doronin.model.OrdersEntity;
 import com.doronin.service.FlowerService;
+import com.doronin.service.OrderService;
 import com.doronin.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,11 +25,13 @@ public class HomeController {
 
     private final FlowerService flowerService;
     private final UserService userService;
+    private final OrderService orderService;
 
     @Autowired
-    public HomeController(FlowerService flowerService, UserService userService) {
+    public HomeController(FlowerService flowerService, UserService userService, OrderService orderService) {
         this.flowerService = flowerService;
         this.userService = userService;
+        this.orderService = orderService;
     }
 
     @ModelAttribute("flower")
@@ -39,6 +43,9 @@ public class HomeController {
     public List<FlowersEntity> getFlowers() {
         return flowerService.list();
     }
+
+    @ModelAttribute("orders")
+    public List<OrdersEntity> getOrders() { return orderService.list();  }
 
     @RequestMapping(value = "/home", method = RequestMethod.POST)
     public String homeInit(@FormParam("username") String username,
@@ -52,6 +59,7 @@ public class HomeController {
             FlowersUsersEntity user = userService.getUserByLogin(username);
             Integer userBalance = user.getBalance();
             Integer userDiscount = user.getDiscount();
+
             model.addAttribute("balance", userBalance);
             model.addAttribute("discount", userDiscount);
             model.addAttribute("username", username);

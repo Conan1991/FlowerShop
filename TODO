@@ -1,6 +1,7 @@
 //implement method DO=ORDER -> pass update table, and user
-//calculate total price
+//handle pass orders from login and pass update table flowers
 //jsp orders foR admin
 //disable button when 0 left on unload method
-//add handler for some adding equal flowername orders
 //handle search in flower table by name and by range of price
+//append go to cart on center page
+//add order close date

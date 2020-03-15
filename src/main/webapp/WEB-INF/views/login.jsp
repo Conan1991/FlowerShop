@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <html>
-<body>
+<body class="text-center">
 <link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/style.css"/>
 <h1>Login Form</h1>
 <%--    <c:if test="${not empty errorMessage}"><div style="color:red; font-weight: bold; margin: 30px 0px;">${errorMessge}</div></c:if>--%>

@@ -22,11 +22,13 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
-<%--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>--%>
-    <script type="text/javascript" src="<c:url value="/resources/js/home.js"/>"></script>
+
+    <%--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>--%>
+    <script type="text/javascript" src="<c:url value="/resources/js/sorttable.js"/>"></script>
 </head>
 <body>
-<p style="background-color: aquamarine">Hello , <span id="username">${username}</span>! , your balance is ${balance} , and your discount is ${discount}%</p>
+<p style="background-color: aquamarine">Hello , <span id="username">${username}</span>! , your balance is ${balance} ,
+    and your discount is ${discount}%</p>
 <c:if test="${empty username}"> <c:redirect url="http://localhost:8080/login">Redirecting to login</c:redirect></c:if>
 <h2>Flowers Cart</h2>
 <table name="Cart" class="sortable">
@@ -44,11 +46,9 @@
     </c:forEach>
     <tr>
         <td>Overall with discount:</td>
-        <td>${total}</td>
+        <td>${totalPrice}</td>
         <td><a href="<c:url value="/doOrder/${username}"/>" class="btn btn-info"> Do order </a></td>
     </tr>
 </table>
-<%--</form:form>--%>
-<%--<display:table name="${flowers}" sort="list">--%>
 </body>
 </html>
