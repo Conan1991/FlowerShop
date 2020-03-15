@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <html>
 <%--<style type="text/css"> <%@include file="css/style.css"%></style>--%>
 <%--<script type="text/javascript"><%@include file="js/sorttable.js"%></script>--%>
@@ -15,9 +16,8 @@
 </head>
 <body>
 <h1>Hello , <span id="username">${username}</span>! , your balance is ${balance}0</h1>
-
+<c:if test="${empty username}"> <c:redirect url="http://localhost:8080/login">Redirecting to login</c:redirect></c:if>
 <h2>Flowers List</h2>
-
 
 <%--<form:form action="/addToCart" method="post" modelAttribute="carts">--%>
 <table name="Flowers" class="sortable">
@@ -35,9 +35,17 @@
             <td><span class="amount_value" itemprop="${flower.name}">${flower.amount}</span></td>
             <td><input type="number" id="${flower.name}" min="1" max="${flower.amount}" class="text_input"></td>
             <td>
-                <button value="add" type="button" id="btn${flower.name}" class="flower_button"
-                        onclick="fire_ajax_submit('${username}', '${flower.name}')">add
-                </button>
+                <c:choose> <c:when test="${flower.amount eq 0}">
+                    <button value="add" type="button" id="btn${flower.name}" class="flower_button"
+                            onclick="fire_ajax_submit('${username}', '${flower.name}')" disabled>add
+                    </button>
+                </c:when>
+                    <c:otherwise>
+                        <button value="add" type="button" id="btn${flower.name}" class="flower_button"
+                                onclick="fire_ajax_submit('${username}', '${flower.name}')">add
+                        </button>
+                    </c:otherwise>
+                </c:choose>
             </td>
         </tr>
     </c:forEach>

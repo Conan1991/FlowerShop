@@ -61,7 +61,7 @@ public class UserDaoImp implements UserDao {
     @Override
     public FlowersUsersEntity getUserByLogin(String username) {
         Session currentSession = sessionFactory.getCurrentSession();
-        TypedQuery<FlowersUsersEntity> query = sessionFactory.getCurrentSession().createQuery("select User from FlowersUsersEntity User " +
+        TypedQuery<FlowersUsersEntity> query = currentSession.createQuery("select User from FlowersUsersEntity User " +
                 "where User.login = '" + username + "'", FlowersUsersEntity.class);
         LOGGER.info("Enter into getUserByName function");
         LOGGER.info(query.getResultList().toString());

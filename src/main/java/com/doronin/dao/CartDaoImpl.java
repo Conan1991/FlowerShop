@@ -12,7 +12,7 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
-public class CartDaoImpl implements CartDao{
+public class CartDaoImpl implements CartDao {
 
     private static final Logger LOGGER = LogManager.getLogger(CartDaoImpl.class);
 
@@ -25,9 +25,14 @@ public class CartDaoImpl implements CartDao{
     }
 
     @Override
+    public void update(CartEntity cartEntity) {
+        sessionFactory.getCurrentSession().saveOrUpdate(cartEntity);
+    }
+
+    @Override
     public List<CartEntity> list() {
         Session currentSession = sessionFactory.getCurrentSession();
-        TypedQuery<CartEntity> query = sessionFactory.getCurrentSession().createQuery(("select Cart from CartEntity Cart"));
+        TypedQuery<CartEntity> query = currentSession.createQuery(("select Cart from CartEntity Cart"));
         return query.getResultList();
     }
 }

@@ -21,6 +21,11 @@ public class CartServiceImpl implements CartService {
     }
 
     @Transactional
+    public void update(CartEntity cartEntity) {
+        cartDao.update(cartEntity);
+    }
+
+    @Transactional
     public List<CartEntity> list() {
         return cartDao.list();
     }

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,7 +45,22 @@ public class CartController {
 
     public List<CartEntity> getCartByUsername(String username) {
         List<CartEntity> all = getAll();
-        return all.stream().filter((cart) -> cart.getLogin().equals(username)).collect(Collectors.toList());
+        return all.stream().filter((rec) -> rec.getLogin().equals(username)).collect(Collectors.toList());
+    }
+
+    public boolean isFlowerOrdered(String username, String flowername) {
+        List<CartEntity> cartByUsername = getCartByUsername(username);
+
+        long count = cartByUsername.stream().filter((rec) -> rec.getName().equals(flowername)).count();
+        LOGGER.info("Find " + count + " records");
+        if (count > 0)
+            return true;
+        return false;
+    }
+
+    private CartEntity getRecord(String username, String flowername) {
+        List<CartEntity> cartByUsername = getCartByUsername(username);
+        return cartByUsername.stream().filter((rec) -> rec.getName().equals(flowername)).findFirst().get();
     }
 
     @ResponseStatus(value = HttpStatus.OK)
@@ -60,14 +75,27 @@ public class CartController {
         LOGGER.info(flowername);
         LOGGER.info(amount);
 
-        CartEntity cartEntity = new CartEntity();
-        cartEntity.setLogin(username);
-        cartEntity.setName(flowername);
-        cartEntity.setOrdered(amount);
         Integer price = flowerService.getFlowerByName(flowername).getPrice();
-        LOGGER.info(price);
-        cartEntity.setSumPrice(BigInteger.valueOf(amount * price));
-        cartService.save(cartEntity);
+        Double discount = Double.valueOf(userService.getUserByLogin(username).getDiscount()*0.01);
+
+        if (isFlowerOrdered(username, flowername)) {
+            CartEntity entity = getRecord(username, flowername);
+            LOGGER.info(entity.toString());
+            Integer newOrdered = entity.getOrdered() + amount;
+            BigDecimal newSummary = BigDecimal.valueOf(newOrdered * price * (1 - discount));
+            entity.setOrdered(newOrdered);
+            entity.setSumPrice(newSummary);
+            cartService.update(entity);
+            LOGGER.info("updating");
+        } else {
+            CartEntity cartEntity = new CartEntity();
+            cartEntity.setLogin(username);
+            cartEntity.setName(flowername);
+            cartEntity.setOrdered(amount);
+            cartEntity.setSumPrice(BigDecimal.valueOf(amount * price * (1 - discount)));
+            cartService.save(cartEntity);
+        }
+
     }
 
     @RequestMapping(value = "/doOrder/{username}", method = RequestMethod.GET)
@@ -80,7 +108,7 @@ public class CartController {
     }
 
     @RequestMapping(value = "/cart/{username}", method = RequestMethod.GET)
-    public String cart( Model model, @PathVariable String username) {
+    public String cart(Model model, @PathVariable String username) {
 
         LOGGER.info("Get cart method");
         LOGGER.info("get value" + username);

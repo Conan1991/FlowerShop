@@ -1,6 +1,7 @@
 package com.doronin.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
@@ -12,6 +13,7 @@ public class OrdersEntity {
     private Date closedate;
     private String status;
     private String login;
+    private BigDecimal total;
 
     @Id
     @Column(name = "ID")
@@ -69,6 +71,28 @@ public class OrdersEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, opendate, closedate, status);
+    }
+
+    @Override
+    public String toString() {
+        return "OrdersEntity{" +
+                "id=" + id +
+                ", opendate=" + opendate +
+                ", closedate=" + closedate +
+                ", status='" + status + '\'' +
+                ", login='" + login + '\'' +
+                ", total=" + total +
+                '}';
+    }
+
+    @Basic
+    @Column(name = "TOTAL")
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
     }
 
     @Basic

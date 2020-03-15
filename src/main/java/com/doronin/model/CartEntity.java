@@ -1,6 +1,7 @@
 package com.doronin.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Objects;
 
@@ -9,7 +10,7 @@ import java.util.Objects;
 @IdClass(CartEntityPK.class)
 public class CartEntity {
     private Integer ordered;
-    private BigInteger sumPrice;
+    private BigDecimal sumPrice;
     private String login;
     private String name;
 
@@ -25,11 +26,11 @@ public class CartEntity {
 
     @Basic
     @Column(name = "SUM_PRICE")
-    public BigInteger getSumPrice() {
+    public BigDecimal getSumPrice() {
         return sumPrice;
     }
 
-    public void setSumPrice(BigInteger sumPrice) {
+    public void setSumPrice(BigDecimal sumPrice) {
         this.sumPrice = sumPrice;
     }
 
@@ -61,6 +62,16 @@ public class CartEntity {
     @Column(name = "NAME")
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String toString() {
+        return "CartEntity{" +
+                "ordered=" + ordered +
+                ", sumPrice=" + sumPrice +
+                ", login='" + login + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 
     public void setName(String name) {

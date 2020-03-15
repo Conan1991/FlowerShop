@@ -2,10 +2,14 @@ function fire_ajax_submit(username, flowername) {
     let ordered = document.getElementById(flowername).value;
     // let elementsByClassName = document.getElementsByClassName("amount_value");
     let amount_elem = $('span[itemprop=' + flowername + ']');
-    let cur_val = amount_elem.text(parseInt(amount_elem.text()) - parseInt(ordered));
-    if (cur_val == '0') {
-        let button = document.getElementById("btn" + flowername);
+    amount_elem.text(parseInt(amount_elem.text()) - parseInt(ordered));
+    console.log(amount_elem.text());
+    if ($(amount_elem).text() == '0') {
+        //let button = document.getElementById("btn" + flowername);
+        //button.prop("disabled", true);
+        let button = $('#btn' + flowername);
         button.prop("disabled", true);
+        console.log(button.text());
     }
 
     var JSONObject = {
@@ -51,6 +55,12 @@ $(function () {
 
     var elements = document.getElementsByClassName("flower_button");
     console.log(document.getElementById("username").textContent);
+
+    //TODO
+    //GET ALL BUTTON AND WHEN 0 -> DISABLE IT
+
+
+
     // for (let i = 0; i < elements.length; i++) {
     //     var button = elements[i];
     //     $(button).onclick = function (event) {

@@ -25,6 +25,11 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
+    public void update(OrdersEntity ordersEntity) {
+        sessionFactory.getCurrentSession().saveOrUpdate(ordersEntity);
+    }
+
+    @Override
     public List<OrdersEntity> list() {
         Session currentSession = sessionFactory.getCurrentSession();
         TypedQuery<OrdersEntity> query = currentSession.createQuery(("select Order_ from OrdersEntity Order_"));
