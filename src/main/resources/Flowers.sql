@@ -48,9 +48,9 @@ CREATE TABLE CART
 CREATE TABLE ORDERS
 (
     ID        INT,
-    LOGIN     varchar(45) NOT NULL UNIQUE,
+    LOGIN     varchar(45) NOT NULL,
     TOTAL     DECIMAL,
-    OPENDATE  DATETIME default CURRENT_DATE,
+    OPENDATE  DATETIME default CURRENT_TIMESTAMP,
     CLOSEDATE DATETIME,
     STATUS    VARCHAR
         CONSTRAINT STATUS_IN CHECK (STATUS IN ('CREATED', 'CLOSED', 'PAID')),
@@ -85,6 +85,8 @@ insert into FLOWERS
 values ('dandelion', 67, 67);
 insert into FLOWERS
 values ('forget-me-not', 150, 100);
+
+insert into orders(id, login, opendate) values(2, 'Maria',CURRENT_TIMESTAMP);
 
 
 

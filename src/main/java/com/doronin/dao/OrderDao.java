@@ -10,5 +10,5 @@ public interface OrderDao {
     void save(OrdersEntity ordersEntity);
     void update(OrdersEntity ordersEntity);
     List<OrdersEntity> list();
-    OrdersEntity getOrderByUsername(String username);
+    List<OrdersEntity> getOrderByUsername(String username);
 }

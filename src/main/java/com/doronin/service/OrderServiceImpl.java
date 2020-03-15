@@ -26,7 +26,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Transactional
-    public OrdersEntity getOrderByName(String s) {
+    public List<OrdersEntity> getOrderByName(String s) {
         return orderDao.getOrderByUsername(s);
+    }
+
+    @Transactional
+    public void update(OrdersEntity ordersEntity) {
+        orderDao.update(ordersEntity);
     }
 }

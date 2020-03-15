@@ -29,6 +29,7 @@ public class OrdersEntity {
 
     @Basic
     @Column(name = "OPENDATE", insertable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     public Date getOpendate() {
         return opendate;
     }
@@ -39,6 +40,7 @@ public class OrdersEntity {
 
     @Basic
     @Column(name = "CLOSEDATE", insertable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     public Date getClosedate() {
         return closedate;
     }

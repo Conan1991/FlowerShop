@@ -23,20 +23,15 @@ public class LoginController {
     public String loginPage(
                             Model model) {
         LOGGER.info(model);
-//        if (error != null)
-//            model.addAttribute("error", "Your username and password is invalid.");
-//        if (logout != null)
-//            model.addAttribute("message", "You have been logged out successfully.");
         return "login";
-        //return "redirect:/";
     }
 
-    @RequestMapping(value = "/submit", method = RequestMethod.POST)
-    public String loginCustomer(@FormParam("username") String username, @FormParam("password") String password, Model model) {
-        //model.addAttribute("userName", userService.list());
-        model.addAttribute("username", username);
-        LOGGER.info(username);
-        LOGGER.info(password);
-        return "redirect:/home";
-    }
+//    @RequestMapping(value = "/submit", method = RequestMethod.POST)
+//    public String loginCustomer(@FormParam("username") String username, @FormParam("password") String password, Model model) {
+//        //model.addAttribute("userName", userService.list());
+//        model.addAttribute("username", username);
+//        LOGGER.info(username);
+//        LOGGER.info(password);
+//        return "redirect:/home";
+//    }
 }

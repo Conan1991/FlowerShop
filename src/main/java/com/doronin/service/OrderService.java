@@ -9,5 +9,6 @@ public interface OrderService {
 
     List<OrdersEntity> list();
 
-    OrdersEntity getOrderByName(String s);
+    List<OrdersEntity> getOrderByName(String s);
+    void update(OrdersEntity ordersEntity);
 }

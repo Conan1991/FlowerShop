@@ -1,6 +1,7 @@
 package com.doronin.controller;
 
 import com.doronin.model.FlowersEntity;
+import com.doronin.model.FlowersUsersEntity;
 import com.doronin.service.FlowerService;
 import com.doronin.service.UserService;
 import org.apache.logging.log4j.LogManager;
@@ -20,11 +21,14 @@ import java.util.List;
 public class HomeController {
     private static final Logger LOGGER = LogManager.getLogger(HomeController.class);
 
-    @Autowired
-    private FlowerService flowerService;
+    private final FlowerService flowerService;
+    private final UserService userService;
 
     @Autowired
-    private UserService userService;
+    public HomeController(FlowerService flowerService, UserService userService) {
+        this.flowerService = flowerService;
+        this.userService = userService;
+    }
 
     @ModelAttribute("flower")
     public FlowersEntity formBackingObject() {
@@ -42,10 +46,14 @@ public class HomeController {
                            Model model) {
 
         LOGGER.info("Get homeInitMethod");
-        LOGGER.info(model.getAttribute("username"));
-        //model.addAttribute("flowers", flowerService.list());
-        LOGGER.info(model.toString());
+        //LOGGER.info(model.getAttribute("username"));
+
         if (userService.isUserExists(username, password)) {
+            FlowersUsersEntity user = userService.getUserByLogin(username);
+            Integer userBalance = user.getBalance();
+            Integer userDiscount = user.getDiscount();
+            model.addAttribute("balance", userBalance);
+            model.addAttribute("discount", userDiscount);
             model.addAttribute("username", username);
             return "home";
         } else {

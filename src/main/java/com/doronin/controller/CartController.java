@@ -4,8 +4,10 @@ package com.doronin.controller;
 import com.doronin.data.SimpleCartObject;
 import com.doronin.enums.Status;
 import com.doronin.model.CartEntity;
+import com.doronin.model.OrdersEntity;
 import com.doronin.service.CartService;
 import com.doronin.service.FlowerService;
+import com.doronin.service.OrderService;
 import com.doronin.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,6 +19,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,17 +31,17 @@ public class CartController {
 
     private static final Logger LOGGER = LogManager.getLogger(CartController.class);
 
-    public List<CartEntity> carts;
-
     private final CartService cartService;
     private final UserService userService;
     private final FlowerService flowerService;
+    private final OrderService orderService;
 
     @Autowired
-    public CartController(CartService cartService, UserService userService, FlowerService flowerService) {
+    public CartController(CartService cartService, UserService userService, FlowerService flowerService, OrderService orderService) {
         this.cartService = cartService;
         this.userService = userService;
         this.flowerService = flowerService;
+        this.orderService = orderService;
     }
 
     @ModelAttribute("carts")
@@ -76,7 +82,7 @@ public class CartController {
         LOGGER.info(amount);
 
         Integer price = flowerService.getFlowerByName(flowername).getPrice();
-        Double discount = Double.valueOf(userService.getUserByLogin(username).getDiscount()*0.01);
+        Double discount = Double.valueOf(userService.getUserByLogin(username).getDiscount() * 0.01);
 
         if (isFlowerOrdered(username, flowername)) {
             CartEntity entity = getRecord(username, flowername);
@@ -103,7 +109,31 @@ public class CartController {
         LOGGER.info("Get do order method");
         LOGGER.info("get value" + username);
         LOGGER.info(Status.CREATED.name());
+
+        Calendar calendar = Calendar.getInstance();
+        LOGGER.info(calendar.getTime());
+
+        List<CartEntity> cart = getCartByUsername(username);
+        BigDecimal total = BigDecimal.valueOf(0);
+        for(CartEntity entity : cart)
+            total.add(entity.getSumPrice());
+
+        OrdersEntity ordersEntity = new OrdersEntity();
+        ordersEntity.setLogin(username);
+        ordersEntity.setStatus(Status.CREATED.name());
+        ordersEntity.setTotal(total);
+
+        LOGGER.info("trying to save orders....");
+        orderService.save(ordersEntity);
+
+        List<OrdersEntity> orderByName = orderService.getOrderByName(username);
+        orderByName.stream().forEach((order)-> LOGGER.info("saved order "+ order.toString()));
+        LOGGER.info("bebebe");
+
+        model.addAttribute("orders", orderByName);
+        model.addAttribute("status", Status.CREATED.name());
         model.addAttribute("username", username);
+
         return "home";
     }
 
@@ -114,9 +144,13 @@ public class CartController {
         LOGGER.info("get value" + username);
 
         List<CartEntity> cart = getCartByUsername(username);
+        BigDecimal total = BigDecimal.valueOf(0);
+        for(CartEntity entity : cart)
+            total.add(entity.getSumPrice());
+
         model.addAttribute("cart", cart);
         model.addAttribute("username", username);
-
+        model.addAttribute("total", total);
         return "cart";
     }
 

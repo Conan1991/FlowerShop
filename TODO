@@ -3,3 +3,4 @@
 //jsp orders foR admin
 //disable button when 0 left on unload method
 //add handler for some adding equal flowername orders
+//handle search in flower table by name and by range of price
