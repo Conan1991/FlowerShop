@@ -20,9 +20,7 @@ public class LoginController {
     private static final Logger LOGGER = LogManager.getLogger(LoginController.class);
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String loginPage(
-                            Model model) {
-        LOGGER.info(model);
+    public String loginPage(Model model) {
         return "login";
     }
 

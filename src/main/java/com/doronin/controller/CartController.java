@@ -21,7 +21,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -105,7 +104,6 @@ public class CartController {
             cartEntity.setSumPrice(BigDecimal.valueOf(amount * price * (1 - discount)));
             cartService.save(cartEntity);
         }
-
     }
 
     @RequestMapping(value = "/doOrder/{username}", method = RequestMethod.GET)
@@ -113,9 +111,6 @@ public class CartController {
         LOGGER.info("Get do order method");
         LOGGER.info("get value" + username);
         LOGGER.info(Status.CREATED.name());
-
-        Calendar calendar = Calendar.getInstance();
-        LOGGER.info(calendar.getTime());
 
         List<CartEntity> cart = getCartByUsername(username);
         BigDecimal total = BigDecimal.valueOf(0);
