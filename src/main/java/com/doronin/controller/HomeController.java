@@ -1,5 +1,8 @@
 package com.doronin.controller;
 
+import com.doronin.data.PayRequestEntity;
+import com.doronin.data.PayResponseEntity;
+import com.doronin.enums.Status;
 import com.doronin.model.AdministratorEntity;
 import com.doronin.model.FlowersEntity;
 import com.doronin.model.FlowersUsersEntity;
@@ -13,12 +16,10 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.FormParam;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -80,6 +81,25 @@ public class HomeController {
             model.addAttribute("errMsg", "Your username or password incorrect, please, try again");
             return "login";
         }
+    }
+
+    @PostMapping("/putOnBalance")
+    public @ResponseBody
+    PayResponseEntity
+    procedurePay(@RequestBody PayRequestEntity inputData) {
+
+        String username = inputData.getUsername();
+        String entered = inputData.getEntered();
+        FlowersUsersEntity user = userService.getUserByLogin(username);
+        Integer balance = user.getBalance();
+        Integer newBalance = balance + Integer.valueOf(entered);
+        user.setBalance(newBalance);
+        userService.update(user);
+
+        PayResponseEntity outputData = new PayResponseEntity();
+        outputData.setBalance(newBalance);
+        outputData.setSuccess(true);
+        return outputData;
     }
 
     @GetMapping("/home")

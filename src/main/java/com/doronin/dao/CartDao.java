@@ -8,5 +8,5 @@ public interface CartDao {
     void save(CartEntity cart);
     void update(CartEntity cartEntity);
     List<CartEntity> list();
-    void clearCart();
+    void clearCart(String username);
 }

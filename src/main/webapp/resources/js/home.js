@@ -32,6 +32,30 @@ function fire_ajax_submit(username, flowername) {
     })
 }
 
+
+function addDeposit(username)
+{
+    let dep = $("#deposit_amount").val();
+
+    var JSONObject = {
+        'username': username,
+        'entered': dep
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/putOnBalance",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(JSONObject),
+        success: function (data) {
+            $("#balance").text(data.balance);
+        },
+        error: function (e) {
+            console.log("ERROR : ", e);
+        }
+    })
+}
+
 // function gotoCart() {
 //     let username = document.getElementById("username").textContent;
 //     $.ajax({

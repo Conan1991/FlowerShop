@@ -3,12 +3,10 @@ package com.doronin.controller;
 import com.doronin.data.OrderStatusObject;
 import com.doronin.data.OrdersResponseEntity;
 import com.doronin.data.PayResponseEntity;
+import com.doronin.dto.CartDto;
 import com.doronin.enums.Status;
-import com.doronin.model.FlowersUsersEntity;
-import com.doronin.model.OrdersEntity;
-import com.doronin.service.CartService;
-import com.doronin.service.OrderService;
-import com.doronin.service.UserService;
+import com.doronin.model.*;
+import com.doronin.service.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -27,14 +25,18 @@ import java.util.List;
 public class OrderController {
     private static final Logger LOGGER = LogManager.getLogger(OrderController.class);
 
+    private final FlowerService flowerService;
+    private final OrderedItemsService orderedItemsService;
     private final CartService cartService;
     private final OrderService orderService;
     private final UserService userService;
 
-    public OrderController(CartService cartService, OrderService orderService, UserService userService) {
+    public OrderController(CartService cartService, OrderService orderService, UserService userService, OrderedItemsService orderedItemsService, FlowerService flowerService) {
         this.cartService = cartService;
         this.orderService = orderService;
         this.userService = userService;
+        this.orderedItemsService = orderedItemsService;
+        this.flowerService = flowerService;
     }
 
     @ModelAttribute("orders")
@@ -48,6 +50,8 @@ public class OrderController {
     OrdersResponseEntity
     applyStatus(@RequestBody OrderStatusObject obj, Model model) {
         LOGGER.info("get apply status");
+        OrdersResponseEntity entity = new OrdersResponseEntity();
+
         String id = obj.getId();
         String status = obj.getStatus();
 
@@ -56,11 +60,12 @@ public class OrderController {
 
         OrdersEntity orderById = orderService.getOrderById(id);
         orderById.setStatus(status);
-        orderById.setClosedate(time);
-        orderService.update(orderById);
+        if (status.equals(Status.CLOSED)) {
+            entity.setDate(time.toString());
+            orderById.setClosedate(time);
+        }
 
-        OrdersResponseEntity entity = new OrdersResponseEntity();
-        entity.setDate(time.toString());
+        orderService.update(orderById);
         entity.setId(id);
         return entity;
     }
@@ -80,8 +85,7 @@ public class OrderController {
         Integer orderPrice = Integer.valueOf(orderTotal.toBigInteger().intValue());
         Integer balance = user.getBalance();
 
-        if(balance - orderPrice >= 0)
-        {
+        if (balance - orderPrice >= 0) {
             Integer newBalance = balance - orderPrice;
             responseEntity.setSuccess(true);
             responseEntity.setBalance(newBalance);
@@ -89,6 +93,14 @@ public class OrderController {
             order.setStatus(Status.PAID.toString());
             userService.update(user);
             orderService.update(order);
+            List<OrderedItemsEntity> cartEntities = orderedItemsService.getOrderById(orderId);
+            for (OrderedItemsEntity entity : cartEntities) {
+                FlowersEntity flower = flowerService.getFlowerByName(entity.getNameFlower());
+                Integer amount = flower.getAmount();
+                flower.setAmount(amount - entity.getOrdered());
+                flowerService.update(flower);
+            }
+            orderedItemsService.clearEntitiesById(orderId);
             return responseEntity;
         }
 

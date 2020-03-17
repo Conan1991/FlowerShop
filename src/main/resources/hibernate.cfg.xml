@@ -16,5 +16,6 @@
         <mapping class="com.doronin.model.FlowersEntity"/>
         <mapping class="com.doronin.model.OrdersEntity"/>
         <mapping class="com.doronin.model.CartEntity"/>
+        <mapping class="com.doronin.model.OrderedItemsEntity"/>
     </session-factory>
 </hibernate-configuration>

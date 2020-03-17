@@ -1,4 +1,4 @@
-function pay_for_order(username, orderId) {
+function pay_for_order(orderId) {
     var JSONObject = {
         'orderId': orderId
     };
@@ -14,10 +14,10 @@ function pay_for_order(username, orderId) {
                 let button = $('#btn' + orderId);
                 button.prop("disabled", true);
                 button.text('PAYED');
+                $("#balance").text(data.balance);
             } else {
-                alert('')
+                alert('Sorry, you don\'t have enough money to pay for it? please, increase your deposit' );
             }
-
         },
         error: function (e) {
             console.log("ERROR : ", e);

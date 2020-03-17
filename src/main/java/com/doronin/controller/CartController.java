@@ -2,6 +2,7 @@ package com.doronin.controller;
 
 
 import com.doronin.data.SimpleCartObject;
+import com.doronin.dto.CartDto;
 import com.doronin.enums.Status;
 import com.doronin.model.CartEntity;
 import com.doronin.model.FlowersEntity;
@@ -21,7 +22,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
@@ -29,17 +32,19 @@ public class CartController {
 
     private static final Logger LOGGER = LogManager.getLogger(CartController.class);
 
+    final CartDto tempCart;
     private final CartService cartService;
     private final UserService userService;
     private final FlowerService flowerService;
     private final OrderService orderService;
 
     @Autowired
-    public CartController(CartService cartService, UserService userService, FlowerService flowerService, OrderService orderService) {
+    public CartController(CartService cartService, UserService userService, FlowerService flowerService, OrderService orderService, CartDto tempCart) {
         this.cartService = cartService;
         this.userService = userService;
         this.flowerService = flowerService;
         this.orderService = orderService;
+        this.tempCart = tempCart;
     }
 
     @ModelAttribute("carts")
@@ -138,8 +143,10 @@ public class CartController {
         model.addAttribute("balance", balance);
         model.addAttribute("discount", discount);
 
-        cart.clear();
-        cartService.clearCart();
+        Map<Integer, List<CartEntity>> tempCartWithId = tempCart.getTempCart();
+        tempCartWithId.put(ordersEntity.getId(), cart);
+        //cart.clear();
+        cartService.clearCart(username);
         return "home";
     }
 

@@ -29,6 +29,8 @@ public class HibernateConfig {
 		factoryBean.setAnnotatedClasses(OrdersEntity.class);
 		factoryBean.setAnnotatedClasses(CartEntity.class);
 		factoryBean.setAnnotatedClasses(CartEntityPK.class);
+		factoryBean.setAnnotatedClasses(OrderedItemsEntity.class);
+		factoryBean.setAnnotatedClasses(OrderedItemsEntityPK.class);
 		return factoryBean;
 	}
 

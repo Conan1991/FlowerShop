@@ -31,7 +31,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Transactional
-    public void clearCart() {
-        cartDao.clearCart();
+    public void clearCart(String username) {
+        cartDao.clearCart(username);
     }
 }

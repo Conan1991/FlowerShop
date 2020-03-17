@@ -32,7 +32,7 @@
 <div class="container">
     <%--    <div class="row">--%>
     <div class="text-center" style="background-color: darkcyan"><h1>Hello , <span id="username">${username}</span>! ,
-        your balance is ${balance} , and your
+        your balance is <span id="balance">${balance}</span> , and your
         discount is ${discount}%</h1></div>
     <c:if test="${empty username}"> <c:redirect
             url="http://localhost:8080/login">Redirecting to login</c:redirect></c:if>
@@ -41,6 +41,8 @@
     <div class="text-center" style="background-color: bisque"><a href="<c:url value="/cart/${username}"/>"
                                                                  class="btn btn-info">Go To Cart</a>
     </div>
+    <div class="text-center" style="background-color: darkcyan"><input type="number" min="1" max="1000000" class="deposit_money" id="deposit_amount">
+    <button style="background-color: aqua" id="btn_deposit" onclick="addDeposit(${username})">Add Money To Deposit</button></div>
 </div>
 
 <div class="container">

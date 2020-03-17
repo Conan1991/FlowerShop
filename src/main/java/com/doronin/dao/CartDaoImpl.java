@@ -37,8 +37,8 @@ public class CartDaoImpl implements CartDao {
     }
 
     @Override
-    public void clearCart() {
+    public void clearCart(String username) {
         Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.createQuery(("delete from CartEntity"));
+        currentSession.createQuery(("delete from CartEntity where CartEntity.login = '" + username + "'"));
     }
 }

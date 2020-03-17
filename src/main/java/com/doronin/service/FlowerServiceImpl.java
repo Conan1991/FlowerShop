@@ -20,6 +20,11 @@ public class FlowerServiceImpl implements FlowerService {
     }
 
     @Transactional
+    public void update(FlowersEntity flower) {
+        flowersDao.update(flower);
+    }
+
+    @Transactional
     public List<FlowersEntity> list() {
         return flowersDao.list();
     }

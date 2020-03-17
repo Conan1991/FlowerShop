@@ -25,6 +25,11 @@ public class FlowerDaoImpl implements FlowerDao {
     }
 
     @Override
+    public void update(FlowersEntity flower) {
+        sessionFactory.getCurrentSession().saveOrUpdate(flower);
+    }
+
+    @Override
     public List<FlowersEntity> list() {
         Session currentSession = sessionFactory.getCurrentSession();
         TypedQuery<FlowersEntity> query = sessionFactory.getCurrentSession().createQuery(("select Flower from FlowersEntity Flower"));

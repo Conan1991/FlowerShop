@@ -6,6 +6,10 @@ import java.util.List;
 
 public interface CartService {
     void save(CartEntity cartEntity);
+
     void update(CartEntity cartEntity);
+
     List<CartEntity> list();
-    void clearCart();}
+
+    void clearCart(String username);
+}
