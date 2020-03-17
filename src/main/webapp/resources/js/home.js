@@ -25,11 +25,9 @@ function fire_ajax_submit(username, flowername) {
         data: JSON.stringify(JSONObject),
         success: function (data) {
             console.log("SUCCESS : ", data);
-            $("#btndandelion").prop("disabled", true);
         },
         error: function (e) {
             console.log("ERROR : ", e);
-            $("#btnbuttercup").prop("disabled", true);
         }
     })
 }

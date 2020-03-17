@@ -22,7 +22,6 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
 
-
     <script type="text/javascript" src="<c:url value="/resources/js/sorttable.js"/>"></script>
     <script type="text/javascript" src="<c:url value="/resources/js/orders.js"/>"></script>
 </head>
@@ -32,11 +31,11 @@
 <h2>ADMIN PAGE</h2>
 
 <%--<form:form action="/doOrder" method="post" modelAttribute="username">--%>
-<table name="Orders" class="table table-hover table-bordered sortable">
+<table name="Orders" class="table table-hover sortable">
     <thead class="thead-dark">
     <tr>
         <td><strong>Order ID</strong></td>
-        <td><strong>Order Name</strong></td>
+        <td><strong>Customer</strong></td>
         <td><strong>Open Date</strong></td>
         <td><strong>Close Date</strong></td>
         <td><strong>Summary Price</strong></td>
@@ -48,7 +47,7 @@
             <td>${orderItem.id}</td>
             <td>${orderItem.login}</td>
             <td>${orderItem.opendate}</td>
-            <td>${orderItem.closedate}</td>
+            <td><span itemprop="${orderItem.id}">${orderItem.closedate}</span></td>
             <td>${orderItem.total}</td>
                 <%--            <td>${orderItem.status}</td>--%>
             <td align="center">

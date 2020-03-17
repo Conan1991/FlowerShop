@@ -35,4 +35,10 @@ public class CartDaoImpl implements CartDao {
         TypedQuery<CartEntity> query = currentSession.createQuery(("select Cart from CartEntity Cart"));
         return query.getResultList();
     }
+
+    @Override
+    public void clearCart() {
+        Session currentSession = sessionFactory.getCurrentSession();
+        currentSession.createQuery(("delete from CartEntity"));
+    }
 }

@@ -29,4 +29,9 @@ public class CartServiceImpl implements CartService {
     public List<CartEntity> list() {
         return cartDao.list();
     }
+
+    @Transactional
+    public void clearCart() {
+        cartDao.clearCart();
+    }
 }

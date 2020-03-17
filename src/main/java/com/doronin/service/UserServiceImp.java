@@ -19,6 +19,11 @@ public class UserServiceImp implements UserService {
         userDao.save(user);
     }
 
+    @Transactional
+    public void update(FlowersUsersEntity user) {
+        userDao.update(user);
+    }
+
     @Transactional(readOnly = true)
     public List<FlowersUsersEntity> list() {
         return userDao.list();

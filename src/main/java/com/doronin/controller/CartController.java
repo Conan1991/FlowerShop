@@ -137,6 +137,9 @@ public class CartController {
         model.addAttribute("username", username);
         model.addAttribute("balance", balance);
         model.addAttribute("discount", discount);
+
+        cart.clear();
+        cartService.clearCart();
         return "home";
     }
 

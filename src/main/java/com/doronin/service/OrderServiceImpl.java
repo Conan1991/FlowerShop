@@ -34,4 +34,9 @@ public class OrderServiceImpl implements OrderService {
     public void update(OrdersEntity ordersEntity) {
         orderDao.update(ordersEntity);
     }
+
+    @Transactional
+    public OrdersEntity getOrderById(String id) {
+        return orderDao.getOrderById(id);
+    }
 }

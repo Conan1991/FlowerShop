@@ -115,8 +115,7 @@
                                 </c:when>
                                     <c:otherwise>
                                         <button value="pay" type="button" id="btn${orderItem.id}" class="pay_button"
-                                                onclick="pay_for_order('${username}', '${orderItem.id}')" disabled
-                                                style="background-color: grey">PAYED
+                                                disabled style="background-color: grey">PAYED
                                         </button>
                                     </c:otherwise>
                                 </c:choose>

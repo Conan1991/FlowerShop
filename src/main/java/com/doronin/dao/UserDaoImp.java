@@ -25,6 +25,11 @@ public class UserDaoImp implements UserDao {
     }
 
     @Override
+    public void update(FlowersUsersEntity user) {
+        sessionFactory.getCurrentSession().saveOrUpdate(user);
+    }
+
+    @Override
     public List<FlowersUsersEntity> list() {
         Session currentSession = sessionFactory.getCurrentSession();
         TypedQuery<FlowersUsersEntity> query = currentSession.createQuery(("select User from FlowersUsersEntity User"));

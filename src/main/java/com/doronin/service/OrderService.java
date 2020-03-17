@@ -11,4 +11,5 @@ public interface OrderService {
 
     List<OrdersEntity> getOrderByName(String s);
     void update(OrdersEntity ordersEntity);
+    OrdersEntity getOrderById(String id);
 }

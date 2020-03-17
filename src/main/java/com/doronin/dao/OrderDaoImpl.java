@@ -39,9 +39,18 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public List<OrdersEntity> getOrderByUsername(String username) {
         Session currentSession = sessionFactory.getCurrentSession();
-        TypedQuery<OrdersEntity> query = sessionFactory.getCurrentSession().createQuery("select Order_ from OrdersEntity Order_ " +
+        TypedQuery<OrdersEntity> query = currentSession.createQuery("select Order_ from OrdersEntity Order_ " +
                 "where Order_.login = '" + username + "'", OrdersEntity.class);
         LOGGER.info("Enter into getOrder By UserName function");
         return query.getResultList();
+    }
+
+    @Override
+    public OrdersEntity getOrderById(String id) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        TypedQuery<OrdersEntity> query = currentSession.createQuery("select Order_ from OrdersEntity Order_ " +
+                "where Order_.id = '" + id + "'", OrdersEntity.class);
+        LOGGER.info("Enter into getOrder By UserName function");
+        return query.getSingleResult();
     }
 }
