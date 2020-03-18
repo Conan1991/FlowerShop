@@ -2,7 +2,6 @@ package com.doronin.controller;
 
 import com.doronin.data.PayRequestEntity;
 import com.doronin.data.PayResponseEntity;
-import com.doronin.enums.Status;
 import com.doronin.model.AdministratorEntity;
 import com.doronin.model.FlowersEntity;
 import com.doronin.model.FlowersUsersEntity;
@@ -19,10 +18,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.FormParam;
-import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
+@SessionAttributes(value = {"username", "flowers", "orders", "errMsg"})
 public class HomeController {
     private static final Logger LOGGER = LogManager.getLogger(HomeController.class);
 
@@ -39,11 +38,6 @@ public class HomeController {
         this.adminService = adminService;
     }
 
-    @ModelAttribute("flower")
-    public FlowersEntity formBackingObject() {
-        return new FlowersEntity();
-    }
-
     @ModelAttribute("flowers")
     public List<FlowersEntity> getFlowers() {
         return flowerService.list();
@@ -55,7 +49,7 @@ public class HomeController {
                            Model model) {
 
         LOGGER.info("Get homeInitMethod");
-        //LOGGER.info(model.getAttribute("username"));
+
         AdministratorEntity admin = adminService.getAdmin();
         if(username.equals(admin.getLogin()) && password.equals(admin.getPassword()))
         {
@@ -103,7 +97,9 @@ public class HomeController {
     }
 
     @GetMapping("/home")
-    public String home() {
+    public String home(Model model) {
+
+        LOGGER.info("get model attr" + model.getAttribute("username"));
         return "home";
     }
 }

@@ -5,7 +5,6 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "ORDERED_ITEMS", schema = "PUBLIC", catalog = "TEST")
-@IdClass(OrderedItemsEntityPK.class)
 public class OrderedItemsEntity {
     private Integer orderId;
     private String login;
@@ -13,6 +12,7 @@ public class OrderedItemsEntity {
     private Integer ordered;
 
     @Id
+    @Basic
     @Column(name = "ORDER_ID")
     public Integer getOrderId() {
         return orderId;
@@ -22,7 +22,7 @@ public class OrderedItemsEntity {
         this.orderId = orderId;
     }
 
-    @Id
+    @Basic
     @Column(name = "LOGIN")
     public String getLogin() {
         return login;

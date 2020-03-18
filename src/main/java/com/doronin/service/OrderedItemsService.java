@@ -8,5 +8,5 @@ public interface OrderedItemsService {
     void save(OrderedItemsEntity ordersEntity);
     List<OrderedItemsEntity> list();
     List<OrderedItemsEntity> getOrderById(String id);
-    void clearEntitiesById(String id);
+    void remove(OrderedItemsEntity entity);
 }

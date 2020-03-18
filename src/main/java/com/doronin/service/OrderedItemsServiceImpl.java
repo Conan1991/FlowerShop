@@ -29,8 +29,9 @@ public class OrderedItemsServiceImpl implements OrderedItemsService {
         return orderedItemsDao.getOrderById(id);
     }
 
-    @Transactional
-    public void clearEntitiesById(String id) {
-            orderedItemsDao.clearEntitiesById(id);
+    @Override
+    public void remove(OrderedItemsEntity entity) {
+        orderedItemsDao.remove(entity);
     }
+
 }

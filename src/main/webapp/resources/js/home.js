@@ -78,8 +78,6 @@ $(function () {
     var elements = document.getElementsByClassName("flower_button");
     console.log(document.getElementById("username").textContent);
 
-    //TODO
-    //GET ALL BUTTON AND WHEN 0 -> DISABLE IT
 
 
 

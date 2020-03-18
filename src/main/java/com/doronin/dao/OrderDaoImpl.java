@@ -51,6 +51,7 @@ public class OrderDaoImpl implements OrderDao {
         TypedQuery<OrdersEntity> query = currentSession.createQuery("select Order_ from OrdersEntity Order_ " +
                 "where Order_.id = '" + id + "'", OrdersEntity.class);
         LOGGER.info("Enter into getOrder By UserName function");
+        LOGGER.info(id);
         return query.getSingleResult();
     }
 }

@@ -1,6 +1,8 @@
 package com.doronin.data;
 
 public class PayResponseEntity {
+
+    Integer balance;
     boolean success;
 
     public boolean isSuccess() {
@@ -18,6 +20,4 @@ public class PayResponseEntity {
     public void setBalance(Integer balance) {
         this.balance = balance;
     }
-
-    Integer balance;
 }

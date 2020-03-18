@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -38,7 +39,10 @@ public class CartDaoImpl implements CartDao {
 
     @Override
     public void clearCart(String username) {
+        LOGGER.info("entering into delete cart method");
+        LOGGER.info("trying to delete cart of user " + username);
         Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.createQuery(("delete from CartEntity where CartEntity.login = '" + username + "'"));
+        Query query = currentSession.createQuery(("delete from CartEntity CE where CE.login = '" + username + "'"));
+        query.executeUpdate();
     }
 }

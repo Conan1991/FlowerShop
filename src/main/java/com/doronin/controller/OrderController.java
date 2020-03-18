@@ -3,12 +3,15 @@ package com.doronin.controller;
 import com.doronin.data.OrderStatusObject;
 import com.doronin.data.OrdersResponseEntity;
 import com.doronin.data.PayResponseEntity;
-import com.doronin.dto.CartDto;
 import com.doronin.enums.Status;
-import com.doronin.model.*;
+import com.doronin.model.FlowersEntity;
+import com.doronin.model.FlowersUsersEntity;
+import com.doronin.model.OrderedItemsEntity;
+import com.doronin.model.OrdersEntity;
 import com.doronin.service.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -75,6 +78,10 @@ public class OrderController {
     PayResponseEntity
     procedurePay(@RequestBody String orderId) {
 
+        JSONObject json = new JSONObject(orderId);
+        orderId = json.getString("orderId");
+        LOGGER.info("get" + orderId);
+
         PayResponseEntity responseEntity = new PayResponseEntity();
 
         OrdersEntity order = orderService.getOrderById(orderId);
@@ -94,17 +101,16 @@ public class OrderController {
             userService.update(user);
             orderService.update(order);
             List<OrderedItemsEntity> cartEntities = orderedItemsService.getOrderById(orderId);
+
             for (OrderedItemsEntity entity : cartEntities) {
                 FlowersEntity flower = flowerService.getFlowerByName(entity.getNameFlower());
                 Integer amount = flower.getAmount();
                 flower.setAmount(amount - entity.getOrdered());
                 flowerService.update(flower);
+                orderedItemsService.remove(entity);
             }
-            orderedItemsService.clearEntitiesById(orderId);
             return responseEntity;
         }
-
         return responseEntity;
     }
-
 }

@@ -41,8 +41,8 @@
     <div class="text-center" style="background-color: bisque"><a href="<c:url value="/cart/${username}"/>"
                                                                  class="btn btn-info">Go To Cart</a>
     </div>
-    <div class="text-center" style="background-color: darkcyan"><input type="number" min="1" max="1000000" class="deposit_money" id="deposit_amount">
-    <button style="background-color: aqua" id="btn_deposit" onclick="addDeposit(${username})">Add Money To Deposit</button></div>
+    <div class="text-center" style="background-color: bisque"><input type="number" min="1" max="1000000" class="deposit_money" id="deposit_amount">
+    <button style="background-color: darkcyan" id="btn_deposit" onclick="addDeposit('${username}')">Add Money To Deposit</button></div>
 </div>
 
 <div class="container">
@@ -111,7 +111,7 @@
                             <td>
                                 <c:choose> <c:when test="${orderItem.status eq 'CREATED'}">
                                     <button value="pay" type="button" id="btn${orderItem.id}" class="pay_button"
-                                            onclick="pay_for_order('${username}', '${orderItem.id}')"
+                                            onclick="pay_for_order('${orderItem.id}')"
                                             style="background-color: cadetblue">PAY
                                     </button>
                                 </c:when>

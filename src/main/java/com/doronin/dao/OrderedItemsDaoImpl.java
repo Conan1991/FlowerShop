@@ -1,11 +1,11 @@
 package com.doronin.dao;
 
 import com.doronin.model.OrderedItemsEntity;
-import com.doronin.model.OrdersEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -34,16 +34,20 @@ public class OrderedItemsDaoImpl implements OrderedItemsDao {
 
     @Override
     public List<OrderedItemsEntity> getOrderById(String id) {
+        LOGGER.info("get Orderby id");
+        LOGGER.info(id);
         Session currentSession = sessionFactory.getCurrentSession();
         TypedQuery<OrderedItemsEntity> query = currentSession.createQuery("select Item from OrderedItemsEntity Item " +
-                "where Item.id = '" + id + "'", OrderedItemsEntity.class);
+                "where Item.orderId = " + id, OrderedItemsEntity.class);
         return query.getResultList();
     }
 
+
     @Override
-    public void clearEntitiesById(String id) {
+    public void remove(OrderedItemsEntity entity) {
+        LOGGER.info("enter clear entityes");
+        LOGGER.info("get " + entity);
         Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.createQuery("delete from OrderedItemsEntity Item " +
-                "where Item.id = '" + id + "'", OrderedItemsEntity.class);
+        currentSession.remove(entity);
     }
 }

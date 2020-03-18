@@ -2,16 +2,9 @@ package com.doronin.controller;
 
 
 import com.doronin.data.SimpleCartObject;
-import com.doronin.dto.CartDto;
 import com.doronin.enums.Status;
-import com.doronin.model.CartEntity;
-import com.doronin.model.FlowersEntity;
-import com.doronin.model.FlowersUsersEntity;
-import com.doronin.model.OrdersEntity;
-import com.doronin.service.CartService;
-import com.doronin.service.FlowerService;
-import com.doronin.service.OrderService;
-import com.doronin.service.UserService;
+import com.doronin.model.*;
+import com.doronin.service.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
@@ -32,19 +23,19 @@ public class CartController {
 
     private static final Logger LOGGER = LogManager.getLogger(CartController.class);
 
-    final CartDto tempCart;
+    private final OrderedItemsService orderedItemsService;
     private final CartService cartService;
     private final UserService userService;
     private final FlowerService flowerService;
     private final OrderService orderService;
 
     @Autowired
-    public CartController(CartService cartService, UserService userService, FlowerService flowerService, OrderService orderService, CartDto tempCart) {
+    public CartController(CartService cartService, UserService userService, FlowerService flowerService, OrderService orderService, OrderedItemsService orderedItemsService) {
         this.cartService = cartService;
         this.userService = userService;
         this.flowerService = flowerService;
         this.orderService = orderService;
-        this.tempCart = tempCart;
+        this.orderedItemsService = orderedItemsService;
     }
 
     @ModelAttribute("carts")
@@ -143,9 +134,15 @@ public class CartController {
         model.addAttribute("balance", balance);
         model.addAttribute("discount", discount);
 
-        Map<Integer, List<CartEntity>> tempCartWithId = tempCart.getTempCart();
-        tempCartWithId.put(ordersEntity.getId(), cart);
-        //cart.clear();
+        for (CartEntity cartEntity : cart) {
+            OrderedItemsEntity orderedItemsEntity = new OrderedItemsEntity();
+            orderedItemsEntity.setOrderId(ordersEntity.getId());
+            orderedItemsEntity.setLogin(username);
+            orderedItemsEntity.setOrdered(cartEntity.getOrdered());
+            orderedItemsEntity.setNameFlower(cartEntity.getName());
+            orderedItemsService.save(orderedItemsEntity);
+        }
+
         cartService.clearCart(username);
         return "home";
     }
