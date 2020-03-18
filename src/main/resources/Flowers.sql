@@ -101,6 +101,9 @@ UPDATE FLOWERS
 SET AMOUNT = 4
 WHERE NAME = 'mimosa';
 
+select * from FLOWERS flower where flower.name like '%mi%';
+select * from FLOWERS flower where flower.PRICE BETWEEN 100 AND 200;
+
 
 
 

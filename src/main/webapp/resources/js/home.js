@@ -58,14 +58,33 @@ function addDeposit(username) {
 }
 
 function closeSession() {
-
     console.log('session is closing...');
+    window.location.href = "/closeSession";
+}
+
+
+function doSearch() {
+    let flowerkey = $('#name1').val();
+    let pricefrom = $('#price1').val();
+    let priceto = $('#price2').val();
+
+    if (flowerkey === "" && pricefrom === "" && priceto === "")
+        return;
+
+    var JSONObject = {
+        'key': flowerkey,
+        'from': pricefrom,
+        'to': priceto
+    };
 
     $.ajax({
-        type: "GET",
-        url: "/closeSession",
+        type: "POST",
+        url: "/doSearch",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(JSONObject),
         success: function (data) {
             console.log("SUCCESS : ", data);
+            window.location.href = "search";
         },
         error: function (e) {
             console.log("ERROR : ", e);
@@ -73,24 +92,10 @@ function closeSession() {
     })
 }
 
-$(function () {
 
+$(function () {
     var elements = document.getElementsByClassName("flower_button");
     console.log(document.getElementById("username").textContent);
-
-
-    // for (let i = 0; i < elements.length; i++) {
-    //     var button = elements[i];
-    //     $(button).onclick = function (event) {
-    //         alert('Спасибо!');
-    //         flowername = button.id.substr(3);
-    //
-    //         amount = document.getElementById(flowername).value;
-    //         //stop submit the form, we will post it manually.
-    //         event.preventDefault();
-    //         fire_ajax_submit(username, flowername, amount);
-    //     };
-    // }
 });
 
 $(function () {
@@ -102,6 +107,4 @@ $(function () {
         $("#test_value").text($(this).val());
 
     });
-
-
 });

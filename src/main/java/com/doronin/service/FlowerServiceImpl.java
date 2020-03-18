@@ -33,4 +33,24 @@ public class FlowerServiceImpl implements FlowerService {
     public FlowersEntity getFlowerByName(String flowername) {
         return flowersDao.getFlowerByName(flowername);
     }
+
+    @Transactional
+    public List<FlowersEntity> searchByName(String keyword) {
+        return flowersDao.searchByName(keyword);
+    }
+
+    @Transactional
+    public List<FlowersEntity> searchByRange(String from, String to) {
+        return flowersDao.searchByRange(from, to);
+    }
+
+    @Transactional
+    public List<FlowersEntity> searchGreater(String from) {
+        return flowersDao.searchGreater(from);
+    }
+
+    @Transactional
+    public List<FlowersEntity> searchSmaller(String to) {
+        return searchSmaller(to);
+    }
 }

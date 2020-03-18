@@ -34,21 +34,37 @@
     <div class="text-center" style="background-color: darkcyan"><h1>Hello , <span id="username">${username}</span>! ,
         your balance is <span id="balance">${balance}</span> , and your
         discount is ${discount}%</h1></div>
-    <c:if test="${empty username}"> <c:redirect
-            url="http://localhost:8080/login">Redirecting to login</c:redirect></c:if>
-    <div class="text-center" style="background-color: bisque"><button onclick="closeSession()" class="btn btn-info">logout</button>
+<%--    <c:if test="${empty username}"> <c:redirect--%>
+<%--            url="http://localhost:8080/login">Redirecting to login</c:redirect></c:if>--%>
+    <div class="text-center" style="background-color: bisque">
+        <button onclick="closeSession()" class="btn btn-info">logout</button>
     </div>
     <div class="text-center" style="background-color: bisque"><a href="<c:url value="/cart/${username}"/>"
                                                                  class="btn btn-info">Go To Cart</a>
     </div>
-    <div class="text-center" style="background-color: bisque"><input type="number" min="1" max="1000000" class="deposit_money" id="deposit_amount">
-    <button style="background-color: darkcyan" id="btn_deposit" onclick="addDeposit('${username}')">Add Money To Deposit</button></div>
+    <div class="text-center" style="background-color: bisque"><input type="number" min="1" max="1000000"
+                                                                     class="deposit_money" id="deposit_amount">
+        <button style="background-color: darkcyan" id="btn_deposit" onclick="addDeposit('${username}')">Add Money To
+            Deposit
+        </button>
+    </div>
+
 </div>
 
 <div class="container">
     <div class="row">
         <div class="col-sm">
             <h2>Flowers List</h2>
+            <div class="row">
+                <div class="col-sm"><p class="font-weight-bold"> Search by name</p>
+                    <div><input type="text" id="name1"></div>
+                </div>
+                <div class="col-sm"><p class="font-weight-bold"> Search by range of price</p>
+                    <div><input type="number" id="price1" min="0"> <input type="number" id="price2" min="0">
+                        <button type="submit" onclick="doSearch()">Search</button>
+                    </div>
+                </div>
+            </div>
             <table name="Flowers" class="table table-hover table-bordered sortable">
                 <thead class="thead-dark">
                 <tr>
@@ -131,4 +147,5 @@
     </div>
 </div>
 </body>
+
 </html>

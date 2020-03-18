@@ -29,7 +29,7 @@ public class OrderedItemsServiceImpl implements OrderedItemsService {
         return orderedItemsDao.getOrderById(id);
     }
 
-    @Override
+    @Transactional
     public void remove(OrderedItemsEntity entity) {
         orderedItemsDao.remove(entity);
     }

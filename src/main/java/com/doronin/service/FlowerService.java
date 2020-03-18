@@ -10,4 +10,8 @@ public interface FlowerService {
     void update(FlowersEntity flower);
     List<FlowersEntity> list();
     FlowersEntity getFlowerByName(String flowername);
+    List<FlowersEntity> searchByName(String keyword);
+    List<FlowersEntity> searchByRange(String from, String to);
+    List<FlowersEntity> searchGreater(String from);
+    List<FlowersEntity> searchSmaller(String to);
 }

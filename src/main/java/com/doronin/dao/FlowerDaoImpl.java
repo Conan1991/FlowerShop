@@ -44,4 +44,28 @@ public class FlowerDaoImpl implements FlowerDao {
         LOGGER.info(query.getResultList().toString());
         return query.getSingleResult();
     }
+
+    @Override
+    public List<FlowersEntity> searchByName(String keyword) {
+        TypedQuery<FlowersEntity> query = sessionFactory.getCurrentSession().createQuery("select f from FlowersEntity f where f.name like '%" + keyword + "%'");
+        return query.getResultList();
+    }
+
+    @Override
+    public List<FlowersEntity> searchByRange(String from, String to) {
+        TypedQuery<FlowersEntity> query = sessionFactory.getCurrentSession().createQuery("select f from FlowersEntity f where f.price between "+ from + " and " + to);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<FlowersEntity> searchGreater(String from) {
+        TypedQuery<FlowersEntity> query = sessionFactory.getCurrentSession().createQuery("select f from FlowersEntity f where f.price >=" + from);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<FlowersEntity> searchSmaller(String to) {
+        TypedQuery<FlowersEntity> query = sessionFactory.getCurrentSession().createQuery("select f from FlowersEntity f where f.price <=" + to);
+        return query.getResultList();
+    }
 }
