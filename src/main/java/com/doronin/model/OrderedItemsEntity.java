@@ -64,6 +64,16 @@ public class OrderedItemsEntity {
     }
 
     @Override
+    public String toString() {
+        return "OrderedItemsEntity{" +
+                "orderId=" + orderId +
+                ", login='" + login + '\'' +
+                ", nameFlower='" + nameFlower + '\'' +
+                ", ordered=" + ordered +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(orderId, login, nameFlower, ordered);
     }

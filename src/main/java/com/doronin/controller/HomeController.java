@@ -17,11 +17,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.FormParam;
 import java.util.List;
 
 @Controller
-@SessionAttributes(value = {"username", "flowers", "orders", "errMsg"})
+@SessionAttributes(value = {"username", "flowers", "orders", "errMsg", "balance", "discount"})
 public class HomeController {
     private static final Logger LOGGER = LogManager.getLogger(HomeController.class);
 
@@ -51,11 +52,11 @@ public class HomeController {
         LOGGER.info("Get homeInitMethod");
 
         AdministratorEntity admin = adminService.getAdmin();
-        if(username.equals(admin.getLogin()) && password.equals(admin.getPassword()))
-        {
+        if (username.equals(admin.getLogin()) && password.equals(admin.getPassword())) {
             List<OrdersEntity> ordersEntities = orderService.list();
             model.addAttribute("username", username);
             model.addAttribute("orders", ordersEntities);
+            model.addAttribute("password", password);
             return "admin";
         }
 
@@ -96,10 +97,18 @@ public class HomeController {
         return outputData;
     }
 
+    @GetMapping("/closeSession")
+    public String closeSession(HttpSession session) {
+        LOGGER.info("get close session method");
+        session.invalidate();
+        LOGGER.info(session.getAttribute("username"));
+        return "redirect:/login";
+    }
+
     @GetMapping("/home")
     public String home(Model model) {
-
-        LOGGER.info("get model attr" + model.getAttribute("username"));
+        LOGGER.info("get model attr " + model.getAttribute("username"));
+        LOGGER.info("get model attr"+ model.getAttribute("balance"));
         return "home";
     }
 }

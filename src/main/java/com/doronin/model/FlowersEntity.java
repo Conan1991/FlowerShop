@@ -10,6 +10,15 @@ public class FlowersEntity {
     private Integer price;
     private Integer amount;
 
+    @Override
+    public String toString() {
+        return "FlowersEntity{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", amount=" + amount +
+                '}';
+    }
+
     @Id
     @Column(name = "NAME")
     public String getName() {

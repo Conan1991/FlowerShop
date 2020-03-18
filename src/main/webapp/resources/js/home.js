@@ -2,11 +2,10 @@ function fire_ajax_submit(username, flowername) {
     let ordered = document.getElementById(flowername).value;
     // let elementsByClassName = document.getElementsByClassName("amount_value");
     let amount_elem = $('span[itemprop=' + flowername + ']');
-    amount_elem.text(parseInt(amount_elem.text()) - parseInt(ordered));
+    if (parseInt(amount_elem.text()) - parseInt(ordered) >= 0)
+        amount_elem.text(parseInt(amount_elem.text()) - parseInt(ordered));
     console.log(amount_elem.text());
     if ($(amount_elem).text() == '0') {
-        //let button = document.getElementById("btn" + flowername);
-        //button.prop("disabled", true);
         let button = $('#btn' + flowername);
         button.prop("disabled", true);
         console.log(button.text());
@@ -23,8 +22,11 @@ function fire_ajax_submit(username, flowername) {
         url: "/home",
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(JSONObject),
+        dataType: "json",
         success: function (data) {
-            console.log("SUCCESS : ", data);
+            if (data.success == false)
+                alert(data.response)
+            console.log("SUCCESS : ", data.success);
         },
         error: function (e) {
             console.log("ERROR : ", e);
@@ -33,8 +35,7 @@ function fire_ajax_submit(username, flowername) {
 }
 
 
-function addDeposit(username)
-{
+function addDeposit(username) {
     let dep = $("#deposit_amount").val();
 
     var JSONObject = {
@@ -56,29 +57,26 @@ function addDeposit(username)
     })
 }
 
-// function gotoCart() {
-//     let username = document.getElementById("username").textContent;
-//     $.ajax({
-//         type: "GET",
-//         url: "/cart",
-//         contentType: "application/json; charset=utf-8",
-//         data: JSON.stringify(username),
-//         dataType: "jsonp",
-//         success: function (data) {
-//             console.log("SUCCESS : ", data);
-//         },
-//         error: function (e) {
-//             console.log("ERROR : ", e);
-//         }
-//     })
-// }
+function closeSession() {
+
+    console.log('session is closing...');
+
+    $.ajax({
+        type: "GET",
+        url: "/closeSession",
+        success: function (data) {
+            console.log("SUCCESS : ", data);
+        },
+        error: function (e) {
+            console.log("ERROR : ", e);
+        }
+    })
+}
 
 $(function () {
 
     var elements = document.getElementsByClassName("flower_button");
     console.log(document.getElementById("username").textContent);
-
-
 
 
     // for (let i = 0; i < elements.length; i++) {

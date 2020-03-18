@@ -36,7 +36,7 @@
         discount is ${discount}%</h1></div>
     <c:if test="${empty username}"> <c:redirect
             url="http://localhost:8080/login">Redirecting to login</c:redirect></c:if>
-    <div class="text-right" style="background-color: bisque"><a href="<c:url value="/login"/>" class="btn btn-info">logout</a>
+    <div class="text-center" style="background-color: bisque"><button onclick="closeSession()" class="btn btn-info">logout</button>
     </div>
     <div class="text-center" style="background-color: bisque"><a href="<c:url value="/cart/${username}"/>"
                                                                  class="btn btn-info">Go To Cart</a>

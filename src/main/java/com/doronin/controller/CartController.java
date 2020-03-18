@@ -1,6 +1,7 @@
 package com.doronin.controller;
 
 
+import com.doronin.data.AddToCartResponceEntity;
 import com.doronin.data.SimpleCartObject;
 import com.doronin.enums.Status;
 import com.doronin.model.*;
@@ -8,7 +9,6 @@ import com.doronin.service.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,10 +68,12 @@ public class CartController {
         return flowerService.list();
     }
 
-    @ResponseStatus(value = HttpStatus.OK)
-    @RequestMapping(value = "/home", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void addToCart(@RequestBody SimpleCartObject simpleCartObject) {
 
+    @RequestMapping(value = "/home", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    AddToCartResponceEntity addToCart(@RequestBody SimpleCartObject simpleCartObject) {
+
+        AddToCartResponceEntity cartResponceEntity = new AddToCartResponceEntity();
         String flowername = simpleCartObject.getFlowername();
         String username = simpleCartObject.getUsername();
         Integer amount = Integer.valueOf(simpleCartObject.getAmount());
@@ -80,7 +82,16 @@ public class CartController {
         LOGGER.info(flowername);
         LOGGER.info(amount);
 
-        Integer price = flowerService.getFlowerByName(flowername).getPrice();
+        FlowersEntity flowerByName = flowerService.getFlowerByName(flowername);
+        Integer price = flowerByName.getPrice();
+        Integer totalFlowers = flowerByName.getAmount();
+
+        if (amount > totalFlowers) {
+            cartResponceEntity.setSuccess(false);
+            cartResponceEntity.setResponse("Sorry, you can't add to cart because there are fewer flowers in the warehouse than you want to order");
+            return cartResponceEntity;
+        }
+
         Double discount = Double.valueOf(userService.getUserByLogin(username).getDiscount() * 0.01);
 
         if (isFlowerOrdered(username, flowername)) {
@@ -100,6 +111,8 @@ public class CartController {
             cartEntity.setSumPrice(BigDecimal.valueOf(amount * price * (1 - discount)));
             cartService.save(cartEntity);
         }
+        cartResponceEntity.setSuccess(true);
+        return cartResponceEntity;
     }
 
     @RequestMapping(value = "/doOrder/{username}", method = RequestMethod.GET)

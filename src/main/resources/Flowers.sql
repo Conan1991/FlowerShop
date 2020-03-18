@@ -97,6 +97,9 @@ insert into FLOWERS
 values ('forget-me-not', 150, 100);
 
 insert into orders(id, login, opendate) values(2, 'Maria',CURRENT_TIMESTAMP);
+UPDATE FLOWERS
+SET AMOUNT = 4
+WHERE NAME = 'mimosa';
 
 
 

@@ -14,10 +14,7 @@ import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
@@ -25,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
+@SessionAttributes(value = {"flowers", "orders", "balance"})
 public class OrderController {
     private static final Logger LOGGER = LogManager.getLogger(OrderController.class);
 
@@ -42,11 +40,10 @@ public class OrderController {
         this.flowerService = flowerService;
     }
 
-    @ModelAttribute("orders")
-    public List<OrdersEntity> getOrders() {
-        return orderService.list();
+    @ModelAttribute("flowers")
+    public List<FlowersEntity> getFlowers() {
+        return flowerService.list();
     }
-
 
     @PostMapping(value = "/applyStatus")
     public @ResponseBody
@@ -63,7 +60,7 @@ public class OrderController {
 
         OrdersEntity orderById = orderService.getOrderById(id);
         orderById.setStatus(status);
-        if (status.equals(Status.CLOSED)) {
+        if (status.equals(Status.CLOSED.toString())) {
             entity.setDate(time.toString());
             orderById.setClosedate(time);
         }
@@ -76,7 +73,7 @@ public class OrderController {
     @PostMapping("/procedurePay")
     public @ResponseBody
     PayResponseEntity
-    procedurePay(@RequestBody String orderId) {
+    procedurePay(@RequestBody String orderId, Model model) {
 
         JSONObject json = new JSONObject(orderId);
         orderId = json.getString("orderId");
@@ -107,8 +104,13 @@ public class OrderController {
                 Integer amount = flower.getAmount();
                 flower.setAmount(amount - entity.getOrdered());
                 flowerService.update(flower);
-                orderedItemsService.remove(entity);
+                //orderedItemsService.remove(entity);
             }
+
+            model.addAttribute("flowers", flowerService.list());
+            model.addAttribute("orders", orderService.getOrderByName(username));
+            model.addAttribute("balance", newBalance);
+
             return responseEntity;
         }
         return responseEntity;

@@ -10,7 +10,7 @@ function pay_for_order(orderId) {
         data: JSON.stringify(JSONObject),
         dataType: "json",
         success: function (data) {
-            if(data.success == 'success') {
+            if(data.success == true) {
                 let button = $('#btn' + orderId);
                 button.prop("disabled", true);
                 button.text('PAYED');
