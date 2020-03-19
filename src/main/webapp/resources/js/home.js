@@ -69,7 +69,7 @@ function doSearch() {
     let priceto = $('#price2').val();
 
     if (flowerkey === "" && pricefrom === "" && priceto === "")
-        return;
+        window.location.href = "/home";
 
     var JSONObject = {
         'key': flowerkey,
@@ -84,7 +84,7 @@ function doSearch() {
         data: JSON.stringify(JSONObject),
         success: function (data) {
             console.log("SUCCESS : ", data);
-            window.location.href = "search";
+            window.location.href = "/searchResult";
         },
         error: function (e) {
             console.log("ERROR : ", e);

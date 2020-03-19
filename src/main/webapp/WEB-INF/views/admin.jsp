@@ -26,8 +26,17 @@
     <script type="text/javascript" src="<c:url value="/resources/js/orders.js"/>"></script>
 </head>
 <body>
-<h1>Hello , <span id="username">${username}</span>! , there you can do with orders</h1>
-<c:if test="${empty username}"> <c:redirect url="http://localhost:8080/login">Redirecting to login</c:redirect></c:if>
+<c:if test="${empty username}"> <c:redirect
+        url="http://localhost:8080/login">Redirecting to login</c:redirect></c:if>
+
+<div class="container">
+    <section><h1>Hello , <span id="username">${username}</span>! , there you can do with orders</h1>
+        <div class="pull-right" style="background-color: bisque">
+            <a href="<c:url value="/closeSession"/>" class="btn btn-info">Logout</a>
+        </div>
+    </section>
+</div>
+
 <h2>ADMIN PAGE</h2>
 
 <%--<form:form action="/doOrder" method="post" modelAttribute="username">--%>

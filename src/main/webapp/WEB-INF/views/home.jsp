@@ -29,16 +29,17 @@
     <script type="text/javascript" src="<c:url value="/resources/js/home.js"/>"></script>
 </head>
 <body>
+<c:if test="${empty username}"> <c:redirect
+        url="http://localhost:8080/login">Redirecting to login</c:redirect></c:if>
 <div class="container">
     <%--    <div class="row">--%>
     <div class="text-center" style="background-color: darkcyan"><h1>Hello , <span id="username">${username}</span>! ,
         your balance is <span id="balance">${balance}</span> , and your
-        discount is ${discount}%</h1></div>
-<%--    <c:if test="${empty username}"> <c:redirect--%>
-<%--            url="http://localhost:8080/login">Redirecting to login</c:redirect></c:if>--%>
-    <div class="text-center" style="background-color: bisque">
-        <button onclick="closeSession()" class="btn btn-info">logout</button>
+        discount is ${discount}%</h1>
+        <button onclick="closeSession()" class="btn btn-info text-right pull-right">logout</button>
     </div>
+</div>
+<div class="container">
     <div class="text-center" style="background-color: bisque"><a href="<c:url value="/cart/${username}"/>"
                                                                  class="btn btn-info">Go To Cart</a>
     </div>
@@ -48,7 +49,6 @@
             Deposit
         </button>
     </div>
-
 </div>
 
 <div class="container">

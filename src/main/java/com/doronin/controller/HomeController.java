@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
-@SessionAttributes(value = {"username", "flowers", "orders", "errMsg", "balance", "discount"})
+@SessionAttributes(value = {"username", "password", "flowers", "orders", "errMsg", "balance", "discount"})
 public class HomeController {
     private static final Logger LOGGER = LogManager.getLogger(HomeController.class);
 
@@ -44,10 +44,10 @@ public class HomeController {
         this.cartService = cartService;
     }
 
-    @ModelAttribute("flowers")
-    public List<FlowersEntity> getFlowers() {
-        return flowerService.list();
-    }
+//    @ModelAttribute("flowers")
+//    public List<FlowersEntity> getFlowers() {
+//        return flowerService.list();
+//    }
 
     @RequestMapping(value = "/home", method = RequestMethod.POST)
     public String homeInit(@FormParam("username") String username,
@@ -55,6 +55,9 @@ public class HomeController {
                            Model model) {
 
         LOGGER.info("Get homeInitMethod");
+
+        LOGGER.info("get username " + username);
+        LOGGER.info("get password " + password);
 
         AdministratorEntity admin = adminService.getAdmin();
         if (username.equals(admin.getLogin()) && password.equals(admin.getPassword())) {
@@ -70,9 +73,10 @@ public class HomeController {
             Integer userBalance = user.getBalance();
             Integer userDiscount = user.getDiscount();
 
-            List<OrdersEntity> order = orderService.getOrderByName(username);
-
-            model.addAttribute("orders", order);
+            List<OrdersEntity> ordersEntities = orderService.getOrderByName(username);
+            List<FlowersEntity> flowersEntities = flowerService.list();
+            model.addAttribute("flowers", flowersEntities);
+            model.addAttribute("orders", ordersEntities);
             model.addAttribute("balance", userBalance);
             model.addAttribute("discount", userDiscount);
             model.addAttribute("username", username);
@@ -117,9 +121,8 @@ public class HomeController {
         response.sendRedirect("/login");
     }
 
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/doSearch", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String doSearch(@RequestBody SearchObject obj, Model model) {
+    @RequestMapping(value = "/doSearch", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
+    public @ResponseBody String doSearch(@RequestBody SearchObject obj, Model model) {
 
         String key = obj.getKey();
         String from = obj.getFrom();
@@ -134,8 +137,14 @@ public class HomeController {
         else if (from.isEmpty() && to.isEmpty()) flowersEntities = flowerService.searchByName(key);
         else flowersEntities = flowerService.searchByRange(from, to);
 
-        model.addAttribute("searchedFlowers", flowersEntities);
-        return "search";
+        model.addAttribute("flowers", flowersEntities);
+        return "/searchResult";
+
+    }
+
+    @GetMapping("/searchResult")
+    public String searchResult(Model model) {
+        return "home";
     }
 
     @GetMapping("/home")
