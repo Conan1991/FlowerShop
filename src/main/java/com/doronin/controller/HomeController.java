@@ -80,6 +80,7 @@ public class HomeController {
             model.addAttribute("balance", userBalance);
             model.addAttribute("discount", userDiscount);
             model.addAttribute("username", username);
+            model.addAttribute("password", password);
             return "home";
         } else {
             model.addAttribute("errMsg", "Your username or password incorrect, please, try again");
@@ -116,13 +117,14 @@ public class HomeController {
         cartService.clearCart((String) model.getAttribute("username"));
 
         status.setComplete();
-        LOGGER.info(request.getSession().isNew());
-//        LOGGER.info(session.getAttribute("username"));
+        if (model.getAttribute("username") == null) LOGGER.info("all ok");
+        else LOGGER.info(model.getAttribute("username"));
         response.sendRedirect("/login");
     }
 
     @RequestMapping(value = "/doSearch", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
-    public @ResponseBody String doSearch(@RequestBody SearchObject obj, Model model) {
+    public @ResponseBody
+    String doSearch(@RequestBody SearchObject obj, Model model) {
 
         String key = obj.getKey();
         String from = obj.getFrom();
@@ -139,7 +141,6 @@ public class HomeController {
 
         model.addAttribute("flowers", flowersEntities);
         return "/searchResult";
-
     }
 
     @GetMapping("/searchResult")
@@ -149,8 +150,20 @@ public class HomeController {
 
     @GetMapping("/home")
     public String home(Model model) {
-        LOGGER.info("get model attr " + model.getAttribute("username"));
-        LOGGER.info("get model attr " + model.getAttribute("balance"));
-        return "home";
+
+        if(LoginController.isAdminLoggedIn(model, adminService))
+            return "redirect:/admin";
+        if(!LoginController.isUserLoggedIn(model, userService))
+            return "redirect:/login";
+
+        String username = (String) model.getAttribute("username");
+        List<OrdersEntity> ordersEntities = orderService.getOrderByName(username);
+        List<FlowersEntity> flowersEntities = flowerService.list();
+
+        model.addAttribute("orders", ordersEntities);
+        model.addAttribute("flowers", flowersEntities);
+
+        return LoginController.checkLogin(model, adminService, userService);
     }
+
 }

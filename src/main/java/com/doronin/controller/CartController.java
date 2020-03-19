@@ -28,14 +28,16 @@ public class CartController {
     private final UserService userService;
     private final FlowerService flowerService;
     private final OrderService orderService;
+    private final AdminService adminService;
 
     @Autowired
-    public CartController(CartService cartService, UserService userService, FlowerService flowerService, OrderService orderService, OrderedItemsService orderedItemsService) {
+    public CartController(CartService cartService, UserService userService, FlowerService flowerService, OrderService orderService, OrderedItemsService orderedItemsService, AdminService adminService) {
         this.cartService = cartService;
         this.userService = userService;
         this.flowerService = flowerService;
         this.orderService = orderService;
         this.orderedItemsService = orderedItemsService;
+        this.adminService = adminService;
     }
 
     @ModelAttribute("carts")
@@ -115,11 +117,17 @@ public class CartController {
         return cartResponceEntity;
     }
 
-    @RequestMapping(value = "/doOrder/{username}", method = RequestMethod.GET)
-    public String doOrder(@PathVariable String username, Model model) {
+    @RequestMapping(value = "/doOrder", method = RequestMethod.GET)
+    public String doOrder(Model model) {
         LOGGER.info("Get do order method");
-        LOGGER.info("get value" + username);
         LOGGER.info(Status.CREATED.name());
+        if(LoginController.isAdminLoggedIn(model, adminService))
+            return "redirect:/admin";
+        if(!LoginController.isUserLoggedIn(model, userService))
+            return "redirect:/login";
+
+        String username = (String) model.getAttribute("username");
+        LOGGER.info("get value" + username);
 
         List<CartEntity> cart = getCartByUsername(username);
         BigDecimal total = BigDecimal.valueOf(0);
@@ -139,13 +147,10 @@ public class CartController {
 
         FlowersUsersEntity user = userService.getUserByLogin(username);
         Integer balance = user.getBalance();
-        Integer discount = user.getDiscount();
 
         model.addAttribute("orders", orderByName);
         model.addAttribute("status", Status.CREATED.name());
-        model.addAttribute("username", username);
         model.addAttribute("balance", balance);
-        model.addAttribute("discount", discount);
 
         for (CartEntity cartEntity : cart) {
             OrderedItemsEntity orderedItemsEntity = new OrderedItemsEntity();
@@ -160,12 +165,16 @@ public class CartController {
         return "home";
     }
 
-    @RequestMapping(value = "/cart/{username}", method = RequestMethod.GET)
-    public String cartPage(Model model, @PathVariable String username) {
-
+    @RequestMapping(value = "/cart", method = RequestMethod.GET)
+    public String cartPage(Model model) {
         LOGGER.info("Get cart method");
-        LOGGER.info("get value " + username);
+        if(LoginController.isAdminLoggedIn(model, adminService))
+            return "redirect:/admin";
+        if(!LoginController.isUserLoggedIn(model, userService))
+            return "redirect:/login";
 
+        String username = (String) model.getAttribute("username");
+        LOGGER.info("get value " + username);
         List<CartEntity> cart = getCartByUsername(username);
 
         cart.stream().forEach((entity) -> LOGGER.info("get " + entity.toString()));
@@ -185,6 +194,4 @@ public class CartController {
         model.addAttribute("totalPrice", total);
         return "cart";
     }
-
-
 }

@@ -40,7 +40,7 @@
     </div>
 </div>
 <div class="container">
-    <div class="text-center" style="background-color: bisque"><a href="<c:url value="/cart/${username}"/>"
+    <div class="text-center" style="background-color: bisque"><a href="<c:url value="/cart"/>"
                                                                  class="btn btn-info">Go To Cart</a>
     </div>
     <div class="text-center" style="background-color: bisque"><input type="number" min="1" max="1000000"

@@ -18,29 +18,23 @@ import java.util.Objects;
 public class UserController {
     private static final Logger LOGGER = LogManager.getLogger(UserController.class);
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final AdminService adminService;
 
     @Autowired
-    private AdminService adminService;
+    public UserController(UserService userService, AdminService adminService) {
+        this.userService = userService;
+        this.adminService = adminService;
+    }
 
     @GetMapping("/")
-    public String loginForm() {
-        //model.addAttribute("users", userService.list());
-        return "redirect:/login";
+    public String loginForm(Model model) {
+        return LoginController.checkLogin(model, adminService, userService);
     }
 
     @GetMapping("/admin")
     public String getAdminPage(Model model) {
-        AdministratorEntity admin = adminService.getAdmin();
-        String username = (String) model.getAttribute("username");
-        String password = (String) model.getAttribute("password");
-        if (Objects.isNull(username) || Objects.isNull(password)) {
-            LOGGER.info("username or password are null");
-            return "redirect:/login";
-        }
-        if (username.equals(admin.getLogin()) && password.equals(admin.getPassword())) return "admin";
-        return "redirect:/login";
+        return LoginController.checkLogin(model, adminService, userService);
     }
 
 }

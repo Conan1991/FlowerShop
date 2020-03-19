@@ -2,6 +2,7 @@ package com.doronin.controller;
 
 
 import com.doronin.model.FlowersUsersEntity;
+import com.doronin.service.AdminService;
 import com.doronin.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,18 +22,22 @@ public class RegistrationController {
     private static final Logger LOGGER = LogManager.getLogger(RegistrationController.class);
     private static final Integer BONUS = 2000;
 
+    private final UserService userService;
+    private final AdminService adminService;
+
     @Autowired
-    private UserService userService;
+    public RegistrationController(UserService userService, AdminService adminService) {
+        this.userService = userService;
+        this.adminService = adminService;
+    }
 
     @GetMapping("/registration")
     public String registration(Model model) {
-        //model.addAttribute("userForm", new FlowersUsersEntity());
+        if (LoginController.isAdminLoggedIn(model, adminService))
+            return "redirect:/admin";
+        if (LoginController.isUserLoggedIn(model, userService))
+            return "redirect:/home";
         return "registration";
-    }
-
-    @ModelAttribute("user")
-    public FlowersUsersEntity formBackingObject() {
-        return new FlowersUsersEntity();
     }
 
     @PostMapping("/addUser")
@@ -42,13 +47,10 @@ public class RegistrationController {
         Integer balance = user.getBalance();
         user.setBalance(balance + BONUS);
 
-
         if (result.hasErrors()) {
-            //model.addAttribute("users", userService.list());
             return "registration";
         }
         if (userService.isUsernameBusy(user.getLogin())) {
-
             model.addAttribute("errMsg", "Username is Busy, sorry");
             LOGGER.info("Username is Busy, sorry");
             return "registration";
@@ -57,7 +59,6 @@ public class RegistrationController {
         model.addAttribute("address", user.getAddress());
         model.addAttribute("balance", user.getBalance());
         model.addAttribute("username", user.getLogin());
-
         userService.save(user);
         return "redirect:/login";
     }

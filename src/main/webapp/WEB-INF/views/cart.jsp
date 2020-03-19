@@ -46,7 +46,7 @@
     <tr>
         <td>Overall with discount:</td>
         <td>${totalPrice}</td>
-        <td><a href="<c:url value="/doOrder/${username}"/>" class="btn btn-info"> Do order </a></td>
+        <td><a href="<c:url value="/doOrder"/>" class="btn btn-info"> Do order </a></td>
     </tr>
 </table>
 </body>

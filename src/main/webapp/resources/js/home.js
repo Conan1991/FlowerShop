@@ -68,8 +68,10 @@ function doSearch() {
     let pricefrom = $('#price1').val();
     let priceto = $('#price2').val();
 
-    if (flowerkey === "" && pricefrom === "" && priceto === "")
+    if (flowerkey === "" && pricefrom === "" && priceto === "") {
         window.location.href = "/home";
+        return;
+    }
 
     var JSONObject = {
         'key': flowerkey,

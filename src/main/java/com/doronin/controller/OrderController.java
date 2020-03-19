@@ -28,12 +28,10 @@ public class OrderController {
 
     private final FlowerService flowerService;
     private final OrderedItemsService orderedItemsService;
-    private final CartService cartService;
     private final OrderService orderService;
     private final UserService userService;
 
-    public OrderController(CartService cartService, OrderService orderService, UserService userService, OrderedItemsService orderedItemsService, FlowerService flowerService) {
-        this.cartService = cartService;
+    public OrderController(OrderService orderService, UserService userService, OrderedItemsService orderedItemsService, FlowerService flowerService) {
         this.orderService = orderService;
         this.userService = userService;
         this.orderedItemsService = orderedItemsService;
