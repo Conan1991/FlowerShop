@@ -13,13 +13,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.validation.Valid;
 
 @Controller
+@SessionAttributes(value = {"username", "password"})
 public class RegistrationController {
 
     private static final Logger LOGGER = LogManager.getLogger(RegistrationController.class);
+
     private static final Integer BONUS = 2000;
 
     private final UserService userService;
@@ -29,6 +32,11 @@ public class RegistrationController {
     public RegistrationController(UserService userService, AdminService adminService) {
         this.userService = userService;
         this.adminService = adminService;
+    }
+
+    @ModelAttribute("user")
+    public FlowersUsersEntity formBackingObject() {
+        return new FlowersUsersEntity();
     }
 
     @GetMapping("/registration")
@@ -44,21 +52,17 @@ public class RegistrationController {
     public String saveUser(@ModelAttribute("user") @Valid FlowersUsersEntity user, BindingResult result, Model model) {
         LOGGER.info("Enter into add User");
 
-        Integer balance = user.getBalance();
-        user.setBalance(balance + BONUS);
-
         if (result.hasErrors()) {
             return "registration";
         }
         if (userService.isUsernameBusy(user.getLogin())) {
             model.addAttribute("errMsg", "Username is Busy, sorry");
-            LOGGER.info("Username is Busy, sorry");
+            LOGGER.info("Username " + user.getLogin() + " is Busy, sorry");
             return "registration";
         }
-        model.addAttribute("fio", user.getFio());
-        model.addAttribute("address", user.getAddress());
-        model.addAttribute("balance", user.getBalance());
-        model.addAttribute("username", user.getLogin());
+
+        Integer balance = user.getBalance();
+        user.setBalance(balance + BONUS);
         userService.save(user);
         return "redirect:/login";
     }

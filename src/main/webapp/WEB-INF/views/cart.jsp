@@ -29,7 +29,9 @@
 <p style="background-color: aquamarine">Hello , <span id="username">${username}</span>! , your balance is ${balance} ,
     and your discount is ${discount}%</p>
 <c:if test="${empty username}"> <c:redirect url="http://localhost:8080/login">Redirecting to login</c:redirect></c:if>
-<h2>Flowers Cart</h2>
+<div class="container"><h2>Flowers Cart</h2>
+    <a href="<c:url value="/home"/>"
+       class="btn btn-info pull-right">Back Home</a></div>
 <table name="Cart" class="sortable">
     <tr>
         <td><strong>Flower Name</strong></td>

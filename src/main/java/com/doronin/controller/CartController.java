@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
+@SessionAttributes(value = {"username", "password", "carts"})
 public class CartController {
 
     private static final Logger LOGGER = LogManager.getLogger(CartController.class);
@@ -45,6 +46,11 @@ public class CartController {
         return cartService.list();
     }
 
+    @ModelAttribute("flowers")
+    public List<FlowersEntity> getFlowers() {
+        return flowerService.list();
+    }
+
     public List<CartEntity> getCartByUsername(String username) {
         List<CartEntity> all = getAll();
         return all.stream().filter((rec) -> rec.getLogin().equals(username)).collect(Collectors.toList());
@@ -64,12 +70,6 @@ public class CartController {
         List<CartEntity> cartByUsername = getCartByUsername(username);
         return cartByUsername.stream().filter((rec) -> rec.getName().equals(flowername)).findFirst().get();
     }
-
-    @ModelAttribute("flowers")
-    public List<FlowersEntity> getFlowers() {
-        return flowerService.list();
-    }
-
 
     @RequestMapping(value = "/home", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
@@ -125,6 +125,8 @@ public class CartController {
             return "redirect:/admin";
         if(!LoginController.isUserLoggedIn(model, userService))
             return "redirect:/login";
+        if(cartService.list().isEmpty())
+            return "home";
 
         String username = (String) model.getAttribute("username");
         LOGGER.info("get value" + username);

@@ -5,20 +5,36 @@ import com.doronin.service.AdminService;
 import com.doronin.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.Objects;
 
 @Controller
+@SessionAttributes(value = {"username", "password"})
 public class LoginController {
 
     private static final Logger LOGGER = LogManager.getLogger(LoginController.class);
 
+    private final UserService userService;
+    private final AdminService adminService;
+
+    @Autowired
+    public LoginController(UserService userService, AdminService adminService) {
+        this.userService = userService;
+        this.adminService = adminService;
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage(Model model) {
+        if(LoginController.isAdminLoggedIn(model, adminService))
+            return "admin";
+        if(LoginController.isUserLoggedIn(model, userService))
+            return "home";
         return "login";
     }
 

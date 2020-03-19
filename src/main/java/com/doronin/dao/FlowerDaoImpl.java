@@ -48,24 +48,28 @@ public class FlowerDaoImpl implements FlowerDao {
     @Override
     public List<FlowersEntity> searchByName(String keyword) {
         TypedQuery<FlowersEntity> query = sessionFactory.getCurrentSession().createQuery("select f from FlowersEntity f where f.name like '%" + keyword + "%'");
+        LOGGER.info("Enter into searchByName function");
         return query.getResultList();
     }
 
     @Override
     public List<FlowersEntity> searchByRange(String from, String to) {
         TypedQuery<FlowersEntity> query = sessionFactory.getCurrentSession().createQuery("select f from FlowersEntity f where f.price between "+ from + " and " + to);
+        LOGGER.info("Enter into searchByRange function");
         return query.getResultList();
     }
 
     @Override
     public List<FlowersEntity> searchGreater(String from) {
-        TypedQuery<FlowersEntity> query = sessionFactory.getCurrentSession().createQuery("select f from FlowersEntity f where f.price >=" + from);
+        TypedQuery<FlowersEntity> query = sessionFactory.getCurrentSession().createQuery("select f from FlowersEntity f where f.price >= " + from);
+        LOGGER.info("Enter into searchGreater function");
         return query.getResultList();
     }
 
     @Override
     public List<FlowersEntity> searchSmaller(String to) {
-        TypedQuery<FlowersEntity> query = sessionFactory.getCurrentSession().createQuery("select f from FlowersEntity f where f.price <=" + to);
+        TypedQuery<FlowersEntity> query = sessionFactory.getCurrentSession().createQuery("select f from FlowersEntity f where f.price <= " + to);
+        LOGGER.info("Enter into searchSmaller function");
         return query.getResultList();
     }
 }

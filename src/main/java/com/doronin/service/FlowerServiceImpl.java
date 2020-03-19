@@ -51,6 +51,6 @@ public class FlowerServiceImpl implements FlowerService {
 
     @Transactional
     public List<FlowersEntity> searchSmaller(String to) {
-        return searchSmaller(to);
+        return flowersDao.searchSmaller(to);
     }
 }

@@ -29,7 +29,7 @@ public class UserController {
 
     @GetMapping("/")
     public String loginForm(Model model) {
-        return LoginController.checkLogin(model, adminService, userService);
+        return "redirect:/home";
     }
 
     @GetMapping("/admin")

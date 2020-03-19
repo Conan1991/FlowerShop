@@ -61,10 +61,10 @@ CREATE TABLE ORDERS
 
 CREATE TABLE ORDERED_ITEMS
 (
-    ORDER_ID INT,
-    LOGIN     varchar(45) NOT NULL,
-    NAME_FLOWER      varchar(45),
-    ORDERED   int DEFAULT 0
+    ORDER_ID    INT,
+    LOGIN       varchar(45) NOT NULL,
+    NAME_FLOWER varchar(45),
+    ORDERED     int DEFAULT 0
 );
 
 
@@ -96,14 +96,20 @@ values ('dandelion', 67, 67);
 insert into FLOWERS
 values ('forget-me-not', 150, 100);
 
-insert into orders(id, login, opendate) values(2, 'Maria',CURRENT_TIMESTAMP);
+insert into orders(id, login, opendate)
+values (2, 'Maria', CURRENT_TIMESTAMP);
 UPDATE FLOWERS
 SET AMOUNT = 4
 WHERE NAME = 'mimosa';
 
-select * from FLOWERS flower where flower.name like '%mi%';
-select * from FLOWERS flower where flower.PRICE BETWEEN 100 AND 200;
+select *
+from FLOWERS flower
+where flower.name like '%mi%';
+select *
+from FLOWERS flower
+where flower.PRICE BETWEEN 100 AND 200;
 
-
+ALTER TABLE FLOWERS_USERS
+    ALTER DISCOUNT SET DEFAULT 3;
 
 

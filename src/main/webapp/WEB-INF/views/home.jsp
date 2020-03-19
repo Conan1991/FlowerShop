@@ -54,7 +54,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm">
-            <h2>Flowers List</h2>
+            <div class="text-center"><h2>Flowers List</h2></div>
             <div class="row">
                 <div class="col-sm"><p class="font-weight-bold"> Search by name</p>
                     <div><input type="text" id="name1"></div>
