@@ -1,8 +1,8 @@
 package com.doronin.controller;
 
-import com.doronin.data.PayRequestEntity;
-import com.doronin.data.PayResponseEntity;
-import com.doronin.data.SearchObject;
+import com.doronin.dto.PayRequestEntity;
+import com.doronin.dto.PayResponseEntity;
+import com.doronin.dto.SearchObject;
 import com.doronin.model.AdministratorEntity;
 import com.doronin.model.FlowersEntity;
 import com.doronin.model.FlowersUsersEntity;

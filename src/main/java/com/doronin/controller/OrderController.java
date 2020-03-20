@@ -1,8 +1,8 @@
 package com.doronin.controller;
 
-import com.doronin.data.OrderStatusObject;
-import com.doronin.data.OrdersResponseEntity;
-import com.doronin.data.PayResponseEntity;
+import com.doronin.dto.OrderStatusObject;
+import com.doronin.dto.OrdersResponseEntity;
+import com.doronin.dto.PayResponseEntity;
 import com.doronin.enums.Status;
 import com.doronin.model.FlowersEntity;
 import com.doronin.model.FlowersUsersEntity;

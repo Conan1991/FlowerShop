@@ -594,7 +594,7 @@
 2020-03-19 16:21:33.675 [http-nio-8080-exec-9] DEBUG org.hibernate.internal.util.EntityPrinter - com.doronin.model.FlowersEntity{amount=45, price=99, name=buttercup}
 2020-03-19 16:21:33.675 [http-nio-8080-exec-9] DEBUG org.hibernate.internal.util.EntityPrinter - com.doronin.model.FlowersEntity{amount=100, price=150, name=forget-me-not}
 2020-03-19 16:21:33.676 [http-nio-8080-exec-9] DEBUG org.springframework.orm.hibernate5.HibernateTransactionManager - Closing Hibernate Session [SessionImpl(1232459608<open>)] after transaction
-2020-03-19 16:21:33.681 [http-nio-8080-exec-9] DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [com.doronin.data.SimpleCartObject@46f3ff3f]
+2020-03-19 16:21:33.681 [http-nio-8080-exec-9] DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [com.doronin.dto.SimpleCartObject@46f3ff3f]
 2020-03-19 16:21:33.681 [http-nio-8080-exec-9] INFO  com.doronin.controller.CartController - Has entered to addToCart post method
 2020-03-19 16:21:33.681 [http-nio-8080-exec-9] INFO  com.doronin.controller.CartController - Aleks
 2020-03-19 16:21:33.681 [http-nio-8080-exec-9] INFO  com.doronin.controller.CartController - rose
@@ -733,7 +733,7 @@
 2020-03-19 16:21:33.713 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - insert into TEST.PUBLIC.CART (ORDERED, SUM_PRICE, NAME, LOGIN) values (?, ?, ?, ?)
 2020-03-19 16:21:33.714 [http-nio-8080-exec-9] DEBUG org.springframework.orm.hibernate5.HibernateTransactionManager - Closing Hibernate Session [SessionImpl(1697616016<open>)] after transaction
 2020-03-19 16:21:33.715 [http-nio-8080-exec-9] DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/javascript, */*;q=0.01] and supported [application/json]
-2020-03-19 16:21:33.716 [http-nio-8080-exec-9] DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor - Writing [com.doronin.data.AddToCartResponceEntity@7c309345]
+2020-03-19 16:21:33.716 [http-nio-8080-exec-9] DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor - Writing [com.doronin.dto.AddToCartResponceEntity@7c309345]
 2020-03-19 16:21:33.718 [http-nio-8080-exec-9] DEBUG org.springframework.web.servlet.DispatcherServlet - Completed 200 OK
 2020-03-19 16:21:39.063 [http-nio-8080-exec-1] DEBUG org.springframework.web.servlet.DispatcherServlet - PUT "/home", parameters={}
 2020-03-19 16:21:39.064 [http-nio-8080-exec-1] DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped to com.doronin.controller.CartController#addToCart(SimpleCartObject)
@@ -815,7 +815,7 @@
 2020-03-19 16:21:39.074 [http-nio-8080-exec-1] DEBUG org.hibernate.internal.util.EntityPrinter - com.doronin.model.FlowersEntity{amount=45, price=99, name=buttercup}
 2020-03-19 16:21:39.074 [http-nio-8080-exec-1] DEBUG org.hibernate.internal.util.EntityPrinter - com.doronin.model.FlowersEntity{amount=100, price=150, name=forget-me-not}
 2020-03-19 16:21:39.075 [http-nio-8080-exec-1] DEBUG org.springframework.orm.hibernate5.HibernateTransactionManager - Closing Hibernate Session [SessionImpl(1566087020<open>)] after transaction
-2020-03-19 16:21:39.076 [http-nio-8080-exec-1] DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [com.doronin.data.SimpleCartObject@4434ab74]
+2020-03-19 16:21:39.076 [http-nio-8080-exec-1] DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [com.doronin.dto.SimpleCartObject@4434ab74]
 2020-03-19 16:21:39.076 [http-nio-8080-exec-1] INFO  com.doronin.controller.CartController - Has entered to addToCart post method
 2020-03-19 16:21:39.076 [http-nio-8080-exec-1] INFO  com.doronin.controller.CartController - Aleks
 2020-03-19 16:21:39.076 [http-nio-8080-exec-1] INFO  com.doronin.controller.CartController - chamomile
@@ -965,7 +965,7 @@
 2020-03-19 16:21:39.116 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - insert into TEST.PUBLIC.CART (ORDERED, SUM_PRICE, NAME, LOGIN) values (?, ?, ?, ?)
 2020-03-19 16:21:39.117 [http-nio-8080-exec-1] DEBUG org.springframework.orm.hibernate5.HibernateTransactionManager - Closing Hibernate Session [SessionImpl(126343615<open>)] after transaction
 2020-03-19 16:21:39.118 [http-nio-8080-exec-1] DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/javascript, */*;q=0.01] and supported [application/json]
-2020-03-19 16:21:39.118 [http-nio-8080-exec-1] DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor - Writing [com.doronin.data.AddToCartResponceEntity@2c66ee7]
+2020-03-19 16:21:39.118 [http-nio-8080-exec-1] DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor - Writing [com.doronin.dto.AddToCartResponceEntity@2c66ee7]
 2020-03-19 16:21:39.118 [http-nio-8080-exec-1] DEBUG org.springframework.web.servlet.DispatcherServlet - Completed 200 OK
 2020-03-19 16:21:47.202 [http-nio-8080-exec-2] DEBUG org.springframework.web.servlet.DispatcherServlet - PUT "/home", parameters={}
 2020-03-19 16:21:47.203 [http-nio-8080-exec-2] DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped to com.doronin.controller.CartController#addToCart(SimpleCartObject)
@@ -1047,7 +1047,7 @@
 2020-03-19 16:21:47.211 [http-nio-8080-exec-2] DEBUG org.hibernate.internal.util.EntityPrinter - com.doronin.model.FlowersEntity{amount=45, price=99, name=buttercup}
 2020-03-19 16:21:47.211 [http-nio-8080-exec-2] DEBUG org.hibernate.internal.util.EntityPrinter - com.doronin.model.FlowersEntity{amount=100, price=150, name=forget-me-not}
 2020-03-19 16:21:47.211 [http-nio-8080-exec-2] DEBUG org.springframework.orm.hibernate5.HibernateTransactionManager - Closing Hibernate Session [SessionImpl(790878751<open>)] after transaction
-2020-03-19 16:21:47.212 [http-nio-8080-exec-2] DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [com.doronin.data.SimpleCartObject@183025d0]
+2020-03-19 16:21:47.212 [http-nio-8080-exec-2] DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [com.doronin.dto.SimpleCartObject@183025d0]
 2020-03-19 16:21:47.212 [http-nio-8080-exec-2] INFO  com.doronin.controller.CartController - Has entered to addToCart post method
 2020-03-19 16:21:47.212 [http-nio-8080-exec-2] INFO  com.doronin.controller.CartController - Aleks
 2020-03-19 16:21:47.212 [http-nio-8080-exec-2] INFO  com.doronin.controller.CartController - dandelion
@@ -1283,7 +1283,7 @@
 2020-03-19 16:21:47.278 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - insert into TEST.PUBLIC.CART (ORDERED, SUM_PRICE, NAME, LOGIN) values (?, ?, ?, ?)
 2020-03-19 16:21:47.280 [http-nio-8080-exec-2] DEBUG org.springframework.orm.hibernate5.HibernateTransactionManager - Closing Hibernate Session [SessionImpl(1863029860<open>)] after transaction
 2020-03-19 16:21:47.282 [http-nio-8080-exec-2] DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/javascript, */*;q=0.01] and supported [application/json]
-2020-03-19 16:21:47.282 [http-nio-8080-exec-2] DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor - Writing [com.doronin.data.AddToCartResponceEntity@42213656]
+2020-03-19 16:21:47.282 [http-nio-8080-exec-2] DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor - Writing [com.doronin.dto.AddToCartResponceEntity@42213656]
 2020-03-19 16:21:47.283 [http-nio-8080-exec-2] DEBUG org.springframework.web.servlet.DispatcherServlet - Completed 200 OK
 2020-03-19 16:21:51.536 [http-nio-8080-exec-3] DEBUG org.springframework.web.servlet.DispatcherServlet - GET "/cart", parameters={}
 2020-03-19 16:21:51.536 [http-nio-8080-exec-3] DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped to com.doronin.controller.CartController#cartPage(Model)
@@ -2587,7 +2587,7 @@
 2020-03-19 16:22:00.916 [http-nio-8080-exec-5] DEBUG org.hibernate.internal.util.EntityPrinter - com.doronin.model.OrdersEntity{total=1653.0, closedate=null, opendate=2020-03-19 16:21:55.396, id=30, login=Aleks, status=PAID}
 2020-03-19 16:22:00.917 [http-nio-8080-exec-5] DEBUG org.springframework.orm.hibernate5.HibernateTransactionManager - Closing Hibernate Session [SessionImpl(1105397750<open>)] after transaction
 2020-03-19 16:22:00.925 [http-nio-8080-exec-5] DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/javascript, */*;q=0.01] and supported [application/json, application/*+json]
-2020-03-19 16:22:00.925 [http-nio-8080-exec-5] DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor - Writing [com.doronin.data.PayResponseEntity@90f2ccf]
+2020-03-19 16:22:00.925 [http-nio-8080-exec-5] DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor - Writing [com.doronin.dto.PayResponseEntity@90f2ccf]
 2020-03-19 16:22:00.929 [http-nio-8080-exec-5] DEBUG org.springframework.web.servlet.DispatcherServlet - Completed 200 OK
 2020-03-19 16:22:00.981 [http-nio-8080-exec-7] DEBUG org.springframework.web.servlet.DispatcherServlet - GET "/home", parameters={}
 2020-03-19 16:22:00.981 [http-nio-8080-exec-7] DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped to com.doronin.controller.HomeController#home(Model)
@@ -3233,7 +3233,7 @@
 2020-03-19 16:22:33.097 [http-nio-8080-exec-3] DEBUG org.hibernate.internal.util.EntityPrinter - com.doronin.model.FlowersEntity{amount=45, price=99, name=buttercup}
 2020-03-19 16:22:33.097 [http-nio-8080-exec-3] DEBUG org.hibernate.internal.util.EntityPrinter - com.doronin.model.FlowersEntity{amount=100, price=150, name=forget-me-not}
 2020-03-19 16:22:33.098 [http-nio-8080-exec-3] DEBUG org.springframework.orm.hibernate5.HibernateTransactionManager - Closing Hibernate Session [SessionImpl(9504197<open>)] after transaction
-2020-03-19 16:22:33.100 [http-nio-8080-exec-3] DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [com.doronin.data.OrderStatusObject@5548cbd1]
+2020-03-19 16:22:33.100 [http-nio-8080-exec-3] DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [com.doronin.dto.OrderStatusObject@5548cbd1]
 2020-03-19 16:22:33.100 [http-nio-8080-exec-3] INFO  com.doronin.controller.OrderController - get apply status
 2020-03-19 16:22:33.100 [http-nio-8080-exec-3] DEBUG org.springframework.orm.hibernate5.HibernateTransactionManager - Creating new transaction with name [com.doronin.service.OrderServiceImpl.getOrderById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
 2020-03-19 16:22:33.100 [http-nio-8080-exec-3] DEBUG org.springframework.orm.hibernate5.HibernateTransactionManager - Opened new Session [SessionImpl(1205157323<open>)] for Hibernate transaction
@@ -3284,7 +3284,7 @@
 2020-03-19 16:22:33.113 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - update TEST.PUBLIC.ORDERS set CLOSEDATE=?, LOGIN=?, OPENDATE=?, STATUS=?, TOTAL=? where ID=?
 2020-03-19 16:22:33.115 [http-nio-8080-exec-3] DEBUG org.springframework.orm.hibernate5.HibernateTransactionManager - Closing Hibernate Session [SessionImpl(150063875<open>)] after transaction
 2020-03-19 16:22:33.116 [http-nio-8080-exec-3] DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/javascript, */*;q=0.01] and supported [application/json, application/*+json]
-2020-03-19 16:22:33.116 [http-nio-8080-exec-3] DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor - Writing [com.doronin.data.OrdersResponseEntity@1504e9e4]
+2020-03-19 16:22:33.116 [http-nio-8080-exec-3] DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor - Writing [com.doronin.dto.OrdersResponseEntity@1504e9e4]
 2020-03-19 16:22:33.117 [http-nio-8080-exec-3] DEBUG org.springframework.web.servlet.DispatcherServlet - Completed 200 OK
 2020-03-19 16:47:45.648 [RMI TCP Connection(3)-127.0.0.1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization started
 2020-03-19 16:47:45.708 [RMI TCP Connection(3)-127.0.0.1] DEBUG org.springframework.web.context.support.AnnotationConfigWebApplicationContext - Refreshing Root WebApplicationContext

@@ -1,4 +1,4 @@
-package com.doronin.data;
+package com.doronin.dto;
 
 public class OrdersResponseEntity {
     String date;

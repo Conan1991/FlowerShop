@@ -1,8 +1,8 @@
 package com.doronin.controller;
 
 
-import com.doronin.data.AddToCartResponceEntity;
-import com.doronin.data.SimpleCartObject;
+import com.doronin.dto.AddToCartResponceEntity;
+import com.doronin.dto.SimpleCartObject;
 import com.doronin.enums.Status;
 import com.doronin.model.*;
 import com.doronin.service.*;
