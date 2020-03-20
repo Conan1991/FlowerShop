@@ -31,13 +31,12 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage(Model model) {
-        if(LoginController.isAdminLoggedIn(model, adminService))
+        if (LoginController.isAdminLoggedIn(model, adminService))
             return "admin";
-        if(LoginController.isUserLoggedIn(model, userService))
+        if (LoginController.isUserLoggedIn(model, userService))
             return "home";
         return "login";
     }
-
 
     public static String checkLogin(Model model, AdminService adminService, UserService userService) {
         //first, check login
@@ -87,5 +86,4 @@ public class LoginController {
         LOGGER.info("username or password are not correct");
         return false;
     }
-
 }

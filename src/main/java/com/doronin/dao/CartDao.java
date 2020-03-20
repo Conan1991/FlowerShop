@@ -6,7 +6,10 @@ import java.util.List;
 
 public interface CartDao {
     void save(CartEntity cart);
+
     void update(CartEntity cartEntity);
+
     List<CartEntity> list();
+
     void clearCart(String username);
 }

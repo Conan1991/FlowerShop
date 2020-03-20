@@ -54,7 +54,7 @@ public class FlowerDaoImpl implements FlowerDao {
 
     @Override
     public List<FlowersEntity> searchByRange(String from, String to) {
-        TypedQuery<FlowersEntity> query = sessionFactory.getCurrentSession().createQuery("select f from FlowersEntity f where f.price between "+ from + " and " + to);
+        TypedQuery<FlowersEntity> query = sessionFactory.getCurrentSession().createQuery("select f from FlowersEntity f where f.price between " + from + " and " + to);
         LOGGER.info("Enter into searchByRange function");
         return query.getResultList();
     }

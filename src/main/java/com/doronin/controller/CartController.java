@@ -121,11 +121,11 @@ public class CartController {
     public String doOrder(Model model) {
         LOGGER.info("Get do order method");
         LOGGER.info(Status.CREATED.name());
-        if(LoginController.isAdminLoggedIn(model, adminService))
+        if (LoginController.isAdminLoggedIn(model, adminService))
             return "redirect:/admin";
-        if(!LoginController.isUserLoggedIn(model, userService))
+        if (!LoginController.isUserLoggedIn(model, userService))
             return "redirect:/login";
-        if(cartService.list().isEmpty())
+        if (cartService.list().isEmpty())
             return "home";
 
         String username = (String) model.getAttribute("username");
@@ -170,9 +170,9 @@ public class CartController {
     @RequestMapping(value = "/cart", method = RequestMethod.GET)
     public String cartPage(Model model) {
         LOGGER.info("Get cart method");
-        if(LoginController.isAdminLoggedIn(model, adminService))
+        if (LoginController.isAdminLoggedIn(model, adminService))
             return "redirect:/admin";
-        if(!LoginController.isUserLoggedIn(model, userService))
+        if (!LoginController.isUserLoggedIn(model, userService))
             return "redirect:/login";
 
         String username = (String) model.getAttribute("username");

@@ -10,14 +10,14 @@ function pay_for_order(orderId) {
         data: JSON.stringify(JSONObject),
         dataType: "json",
         success: function (data) {
-            if(data.success == true) {
+            if (data.success == true) {
                 let button = $('#btn' + orderId);
                 button.prop("disabled", true);
                 button.text('PAYED');
                 $("#balance").text(data.balance);
                 window.location.href = "/home";
             } else {
-                alert('Sorry, you don\'t have enough money to pay for it. Please, increase your deposit' );
+                alert('Sorry, you don\'t have enough money to pay for it. Please, increase your deposit');
             }
         },
         error: function (e) {

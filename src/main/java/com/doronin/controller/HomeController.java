@@ -151,9 +151,9 @@ public class HomeController {
     @GetMapping("/home")
     public String home(Model model) {
 
-        if(LoginController.isAdminLoggedIn(model, adminService))
+        if (LoginController.isAdminLoggedIn(model, adminService))
             return "redirect:/admin";
-        if(!LoginController.isUserLoggedIn(model, userService))
+        if (!LoginController.isUserLoggedIn(model, userService))
             return "redirect:/login";
 
         String username = (String) model.getAttribute("username");

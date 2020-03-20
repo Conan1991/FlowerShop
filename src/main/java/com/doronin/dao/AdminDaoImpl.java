@@ -1,7 +1,6 @@
 package com.doronin.dao;
 
 import com.doronin.model.AdministratorEntity;
-import com.doronin.model.FlowersEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.SessionFactory;
