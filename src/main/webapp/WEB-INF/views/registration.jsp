@@ -22,29 +22,29 @@
         <tr>
             <td>FIO</td>
             <td>
-                <form:input path="fio"/> <br/>
-                <form:errors path="fio" cssClass="error"/>
+                <input path="fio" required/> <br/>
+                <errors path="fio" cssClass="error"/>
             </td>
         </tr>
         <tr>
             <td>ADRESS</td>
             <td>
-                <form:input path="address"/> <br/>
-                <form:errors path="address" cssClass="error"/>
+                <input path="address" required/> <br/>
+                <errors path="address" cssClass="error"/>
             </td>
         </tr>
         <tr>
             <td>BALANCE</td>
             <td>
-                <form:input path="balance"/> <br/>
-                <form:errors path="balance" cssClass="error"/>
+                <input path="balance" required type="number" min="0" /> <br/>
+                <errors path="balance" cssClass="error"/>
             </td>
         </tr>
         <tr>
             <td>LOGIN</td>
             <td>
-                <form:input path="login" placeHolder="Username"/> <br/>
-                <form:errors path="login" cssClass="error"/>
+                <input path="login" placeHolder="Username" required/> <br/>
+                <errors path="login" cssClass="error"/>
             </td>
         </tr>
         <tr>

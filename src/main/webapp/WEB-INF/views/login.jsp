@@ -11,14 +11,14 @@
     <table>
         <tr>
             <td>User:</td>
-            <td><input type='text' name='username' value='' autofocus="true"></td>
+            <td><input type='text' name='username' value='' autofocus="true" required placeholder="Username"></td>
         </tr>
         <tr>
             <td>Password:</td>
-            <td><input type='password' name='password'/></td>
+            <td><input type='password' name='password' required placeholder="Password"/></td>
         </tr>
         <tr>
-            <td><input name="submit" type="submit" value="submit"/></td>
+            <td><input name="submit" type="submit" value="submit" /></td>
         </tr>
     </table>
     <c:if test="${not empty errMsg}">

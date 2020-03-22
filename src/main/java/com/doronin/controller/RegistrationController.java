@@ -55,6 +55,13 @@ public class RegistrationController {
         if (result.hasErrors()) {
             return "registration";
         }
+
+        if(user.getBalance() < 0)
+        {
+            model.addAttribute("errMsg", "Please , input positive number");
+            return "registration";
+        }
+
         if (userService.isUsernameBusy(user.getLogin())) {
             model.addAttribute("errMsg", "Username is Busy, sorry");
             LOGGER.info("Username " + user.getLogin() + " is Busy, sorry");

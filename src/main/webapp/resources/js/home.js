@@ -1,5 +1,10 @@
 function fire_ajax_submit(username, flowername) {
     let ordered = document.getElementById(flowername).value;
+
+    if (ordered <= 0) {
+        ordered.value = 0;
+        return;
+    }
     // let elementsByClassName = document.getElementsByClassName("amount_value");
     let amount_elem = $('span[itemprop=' + flowername + ']');
     if (parseInt(amount_elem.text()) - parseInt(ordered) >= 0)
@@ -67,6 +72,9 @@ function doSearch() {
     let flowerkey = $('#name1').val();
     let pricefrom = $('#price1').val();
     let priceto = $('#price2').val();
+
+    if (pricefrom < 0 || priceto < pricefrom || priceto == 0)
+        return;
 
     if (flowerkey === "" && pricefrom === "" && priceto === "") {
         window.location.href = "/home";
