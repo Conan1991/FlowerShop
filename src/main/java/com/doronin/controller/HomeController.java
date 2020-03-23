@@ -117,8 +117,6 @@ public class HomeController {
         cartService.clearCart((String) model.getAttribute("username"));
 
         status.setComplete();
-        if (model.getAttribute("username") == null) LOGGER.info("all ok");
-        else LOGGER.info(model.getAttribute("username"));
         response.sendRedirect("/login");
     }
 
