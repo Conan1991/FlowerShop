@@ -3,13 +3,21 @@ package com.doronin.service;
 import com.doronin.dao.UserDao;
 import com.doronin.model.FlowersUsersEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
-public class UserServiceImp implements UserService {
+public class UserServiceImp implements UserService, UserDetailsService {
 
     @Autowired
     private UserDao userDao;
@@ -42,5 +50,16 @@ public class UserServiceImp implements UserService {
     @Transactional
     public FlowersUsersEntity getUserByLogin(String username) {
         return userDao.getUserByLogin(username);
+    }
+
+    @Transactional(readOnly = true)
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        FlowersUsersEntity usersEntity = getUserByLogin(s);
+        Set<GrantedAuthority> roles = new HashSet();
+        roles.add(new SimpleGrantedAuthority("USER"));
+        UserDetails userDetails =
+                new User(usersEntity.getLogin(),
+                        usersEntity.getPassword(), roles);
+        return userDetails;
     }
 }

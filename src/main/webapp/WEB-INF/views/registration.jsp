@@ -60,9 +60,9 @@
             </td>
         </tr>
     </table>
-    <c:if test="${not empty errMsg}">
-        <h4 class="error message" style="width: 900px">${errMsg}</h4>
-    </c:if>
+<%--    <c:if test="${not empty errMsg}">--%>
+<%--        <h4 class="error message" style="width: 900px">${errMsg}</h4>--%>
+<%--    </c:if>--%>
 </form:form>
 
 </body>
