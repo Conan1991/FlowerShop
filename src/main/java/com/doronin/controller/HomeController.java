@@ -49,15 +49,17 @@ public class HomeController {
 //        return flowerService.list();
 //    }
 
-    @RequestMapping(value = "/home", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String homeInit(@FormParam("username") String username,
                            @FormParam("password") String password,
+                           @RequestParam(value = "errMsg", required = false) String error,
                            Model model) {
 
         LOGGER.info("Get homeInitMethod");
 
         LOGGER.info("get username " + username);
         LOGGER.info("get password " + password);
+        LOGGER.info("get ERROR " + error);
 
         AdministratorEntity admin = adminService.getAdmin();
         if (username.equals(admin.getLogin()) && password.equals(admin.getPassword())) {
@@ -146,7 +148,7 @@ public class HomeController {
         return "home";
     }
 
-    @GetMapping("/home")
+    @GetMapping("/home**")
     public String home(Model model) {
 
         if (LoginController.isAdminLoggedIn(model, adminService))

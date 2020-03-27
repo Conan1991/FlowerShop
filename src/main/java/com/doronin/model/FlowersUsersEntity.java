@@ -1,5 +1,7 @@
 package com.doronin.model;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -80,6 +82,19 @@ public class FlowersUsersEntity {
    @Column(name = "DISCOUNT", insertable = false)
    public Integer getDiscount() {
       return discount;
+   }
+
+   @Override
+   public String toString() {
+      return "FlowersUsersEntity{" +
+              "id=" + id +
+              ", login='" + login + '\'' +
+              ", password='" + password + '\'' +
+              ", fio='" + fio + '\'' +
+              ", address='" + address + '\'' +
+              ", balance=" + balance +
+              ", discount=" + discount +
+              '}';
    }
 
    public void setDiscount(Integer discount) {

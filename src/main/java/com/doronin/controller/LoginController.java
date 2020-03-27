@@ -29,7 +29,7 @@ public class LoginController {
         this.adminService = adminService;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login**", method = RequestMethod.GET)
     public String loginPage(Model model) {
         if (LoginController.isAdminLoggedIn(model, adminService))
             return "admin";
