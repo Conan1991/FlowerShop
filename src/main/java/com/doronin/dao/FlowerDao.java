@@ -11,7 +11,7 @@ public interface FlowerDao {
 
     List<FlowersEntity> list();
 
-    FlowersEntity getFlowerByName(String flowername);
+    FlowersEntity getFlowerByName(String flowerName);
 
     List<FlowersEntity> searchByName(String keyword);
 

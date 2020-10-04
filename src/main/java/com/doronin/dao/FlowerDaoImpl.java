@@ -37,9 +37,9 @@ public class FlowerDaoImpl implements FlowerDao {
     }
 
     @Override
-    public FlowersEntity getFlowerByName(String flowername) {
+    public FlowersEntity getFlowerByName(String flowerName) {
         TypedQuery<FlowersEntity> query = sessionFactory.getCurrentSession().createQuery("select Flower from FlowersEntity Flower " +
-                "where Flower.name = '" + flowername + "'", FlowersEntity.class);
+                "where Flower.name = '" + flowerName + "'", FlowersEntity.class);
         LOGGER.info("Enter into getFlolwerByName function");
         LOGGER.info(query.getResultList().toString());
         return query.getSingleResult();
