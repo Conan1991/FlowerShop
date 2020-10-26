@@ -6,7 +6,6 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.servlet.DispatcherServlet;
 
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
 public class AppInitializer implements WebApplicationInitializer {
@@ -14,7 +13,7 @@ public class AppInitializer implements WebApplicationInitializer {
     private static final String DISPATCHER_SERVLET_NAME = "dispatcher";
 
     @Override
-    public void onStartup(ServletContext servletContext) throws ServletException {
+    public void onStartup(ServletContext servletContext) {
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
         ctx.register(WebMvcConfig.class);
         servletContext.addListener(new ContextLoaderListener(ctx));

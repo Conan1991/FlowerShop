@@ -56,48 +56,46 @@ public class CartController {
         return all.stream().filter((rec) -> rec.getLogin().equals(username)).collect(Collectors.toList());
     }
 
-    public boolean isFlowerOrdered(String username, String flowername) {
+    public boolean isFlowerOrdered(String username, String flowerName) {
         List<CartEntity> cartByUsername = getCartByUsername(username);
 
-        long count = cartByUsername.stream().filter((rec) -> rec.getName().equals(flowername)).count();
+        long count = cartByUsername.stream().filter((rec) -> rec.getName().equals(flowerName)).count();
         LOGGER.info("Find " + count + " records");
-        if (count > 0)
-            return true;
-        return false;
+        return count > 0;
     }
 
-    private CartEntity getRecord(String username, String flowername) {
+    private CartEntity getRecord(String username, String flowerName) {
         List<CartEntity> cartByUsername = getCartByUsername(username);
-        return cartByUsername.stream().filter((rec) -> rec.getName().equals(flowername)).findFirst().get();
+        return cartByUsername.stream().filter((rec) -> rec.getName().equals(flowerName)).findFirst().get();
     }
 
     @RequestMapping(value = "/home", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     AddToCartResponceEntity addToCart(@RequestBody SimpleCartObject simpleCartObject) {
 
-        AddToCartResponceEntity cartResponceEntity = new AddToCartResponceEntity();
-        String flowername = simpleCartObject.getFlowername();
-        String username = simpleCartObject.getUsername();
+        AddToCartResponceEntity cartResponseEntity = new AddToCartResponceEntity();
+        String flowerName = simpleCartObject.getFlowername();
+        String userName = simpleCartObject.getUsername();
         Integer amount = Integer.valueOf(simpleCartObject.getAmount());
         LOGGER.info("Has entered to addToCart post method");
-        LOGGER.info(username);
-        LOGGER.info(flowername);
+        LOGGER.info(userName);
+        LOGGER.info(flowerName);
         LOGGER.info(amount);
 
-        FlowersEntity flowerByName = flowerService.getFlowerByName(flowername);
+        FlowersEntity flowerByName = flowerService.getFlowerByName(flowerName);
         Integer price = flowerByName.getPrice();
         Integer totalFlowers = flowerByName.getAmount();
 
         if (amount > totalFlowers) {
-            cartResponceEntity.setSuccess(false);
-            cartResponceEntity.setResponse("Sorry, you can't add to cart because there are fewer flowers in the warehouse than you want to order");
-            return cartResponceEntity;
+            cartResponseEntity.setSuccess(false);
+            cartResponseEntity.setResponse("Sorry, you can't add to cart because there are fewer flowers in the warehouse than you want to order");
+            return cartResponseEntity;
         }
 
-        Double discount = Double.valueOf(userService.getUserByLogin(username).getDiscount() * 0.01);
+        double discount = userService.getUserByLogin(userName).getDiscount() * 0.01;
 
-        if (isFlowerOrdered(username, flowername)) {
-            CartEntity entity = getRecord(username, flowername);
+        if (isFlowerOrdered(userName, flowerName)) {
+            CartEntity entity = getRecord(userName, flowerName);
             LOGGER.info(entity.toString());
             Integer newOrdered = entity.getOrdered() + amount;
             BigDecimal newSummary = BigDecimal.valueOf(newOrdered * price * (1 - discount));
@@ -107,14 +105,14 @@ public class CartController {
             LOGGER.info("updating");
         } else {
             CartEntity cartEntity = new CartEntity();
-            cartEntity.setLogin(username);
-            cartEntity.setName(flowername);
+            cartEntity.setLogin(userName);
+            cartEntity.setName(flowerName);
             cartEntity.setOrdered(amount);
             cartEntity.setSumPrice(BigDecimal.valueOf(amount * price * (1 - discount)));
             cartService.save(cartEntity);
         }
-        cartResponceEntity.setSuccess(true);
-        return cartResponceEntity;
+        cartResponseEntity.setSuccess(true);
+        return cartResponseEntity;
     }
 
     @RequestMapping(value = "/doOrder", method = RequestMethod.GET)
@@ -145,7 +143,7 @@ public class CartController {
         orderService.save(ordersEntity);
 
         List<OrdersEntity> orderByName = orderService.getOrderByName(username);
-        orderByName.stream().forEach((order) -> LOGGER.info("saved order " + order.toString()));
+        orderByName.forEach((order) -> LOGGER.info("saved order " + order.toString()));
 
         FlowersUsersEntity user = userService.getUserByLogin(username);
         Integer balance = user.getBalance();
@@ -179,7 +177,7 @@ public class CartController {
         LOGGER.info("get value " + username);
         List<CartEntity> cart = getCartByUsername(username);
 
-        cart.stream().forEach((entity) -> LOGGER.info("get " + entity.toString()));
+        cart.forEach((entity) -> LOGGER.info("get " + entity.toString()));
         BigDecimal total = BigDecimal.valueOf(0);
         for (CartEntity entity : cart)
             total = total.add(entity.getSumPrice());
